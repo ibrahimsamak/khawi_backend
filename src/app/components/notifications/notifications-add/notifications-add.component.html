@@ -1,0 +1,62 @@
+<div class="container-fluid">
+    <div class="edit-profile">
+        <div class="row">
+            <div class="col-lg-12">
+                <form class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">اضافة تنبيه عام</h4>
+                        <div class="card-options">
+                            <a class="card-options-collapse" [routerLink]="" data-toggle="card-collapse">
+                                <i class="fe fe-chevron-up"></i>
+                            </a>
+                            <a class="card-options-remove" [routerLink]="" data-toggle="card-remove">
+                                <i class="fe fe-x"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form #form="ngForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">الجهة المرسل اليها</label>
+                                        <select required name="type" id="type" #type="ngModel"
+                                            [(ngModel)]="notificationsDetails.type" class="form-control">
+                                            <option value="">-- اختر -- </option>
+                                            <option value="1">الزبائن</option>
+                                            <option value="2">مزودين الغاز</option>
+                                            <option value="3">السائقين</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">عنوان التنبيه</label>
+                                        <input required class="form-control" type="text" id="title" name="title"
+                                            #title="ngModel" [(ngModel)]="notificationsDetails.title">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">نص التنبيه</label>
+                                        <textarea maxlength="200" required class="form-control" type="text" id="msg"
+                                            name="msg" #msg="ngModel" rows="3"
+                                            [(ngModel)]="notificationsDetails.msg"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer text-right">
+                        <button class="btn btn-primary" [class.loader--text]="showLoader"
+                            [disabled]="!form.valid || showLoader" (click)="send()" type="submit">
+                            <span>
+                                {{ showLoader ? '' : 'ارسال'}}
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

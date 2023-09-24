@@ -1,0 +1,66 @@
+<div class="container-fluid">
+    <div class="edit-profile">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">اضافة او تعديل مناطق التوزيع</h4>
+                    </div>
+                    <div class="card-body">
+                        <form #form="ngForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">اسم المنطقة بالعربية</label>
+                                        <input required class="form-control" type="text" id="arName" name="arName"
+                                            #arName="ngModel" [(ngModel)]="placeDetails.arName">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">اسم المنطقة بالانجليزية</label>
+                                        <input required class="form-control" type="text" id="enName" name="enName"
+                                            #enName="ngModel" [(ngModel)]="placeDetails.enName">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">تابع لمدينة</label>
+                                        <select required name="city_id" id="city_id" #city_id="ngModel"
+                                            [(ngModel)]="placeDetails.city_id" class="form-control">
+                                            <option value="">اختر المدينة </option>
+                                            <option *ngFor="let item of cities" value="{{item._id}}">{{item.arName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">حدود المنطقة</label>
+                                        <agm-map [zoom]="15" [latitude]="lat" [longitude]="lng" #agmMap
+                                            [scrollwheel]="true" [disableDoubleClickZoom]="false" [mapDraggable]="true"
+                                            [zoomControl]="true" [mapTypeControl]="true" [mapTypeId]="'hybrid'"
+                                            (mapReady)="onMapReady($event)">
+                                        </agm-map>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer text-right">
+                        <button *ngIf="this.selectedShape" type="button" class="btn btn-warning"
+                            (click)="deleteSelectedShape()">
+                            الغاء الحدود
+                        </button>&nbsp;
+                        <button class="btn btn-primary" [class.loader--text]="showLoader"
+                            [disabled]="!form.valid || showLoader" (click)="savePlace()" type="submit">
+                            <span>
+                                {{ showLoader ? '' : 'حفظ المعلومات'}}
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

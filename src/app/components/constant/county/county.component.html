@@ -1,0 +1,116 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>قائمة الدول</h5>
+                </div>
+                <div class="todo">
+                    <div class="todo-list-wrapper">
+                        <div class="todo-list-container">
+                            <div class="mark-all-tasks">
+                                <div class="mark-all-tasks-container">
+                                    <button title="اضافة جديد" class="btn btn-success-gradien"
+                                        (click)="openCountry(content,null)">
+                                        <i class="fa fa-plus"></i> اضافة جديد
+                                    </button>&nbsp;
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">الاسم العربي</th>
+                                            <th scope="col">الاسم الانجليزي </th>
+                                            <th scope="col">الحالة</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of Country">
+                                            <td>{{item.flag}} {{item.arName}}</td>
+                                            <td>{{item.enName}}</td>
+                                            <td>
+                                                <span *ngIf="item.isDeleted">مخفي</span>
+                                                <span *ngIf="!item.isDeleted">ظاهر</span>
+                                            </td>
+                                            <td>
+                                                <button placement="top" ngbTooltip="تعديل"
+                                                    class="btn btn-primary-gradien" (click)="openCountry(content,item)">
+                                                    <i class="fa fa-pencil"></i>
+                                                </button>&nbsp;
+
+                                                <button placement="top" ngbTooltip="اخفاء واظهار الدول في التطبيق"
+                                                    class="btn btn-danger-gradien" (click)="deleteCountry(item._id)">
+                                                    <i *ngIf="!item.isDeleted" class="fa fa-eye-slash"></i>
+                                                    <i *ngIf="item.isDeleted" class="fa fa-eye"></i>
+                                                </button>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <!-- <ngb-pagination [collectionSize]="Country.length" #numPages [pageSize]="itemsPerPage"
+                                [(page)]="currentPage" (pageChange)="onPageChange(currentPage)"></ngb-pagination> -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">اضافة وتعديل الدول</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" style="text-align: right;">
+        <form #form="ngForm">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>{{countryObject.arName}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="arName">الاسم العربي</label>
+                        <div class="input-group">
+                            <input required #arName="ngModel" type="text" class="form-control" id="arName" name="arName"
+                                [(ngModel)]="countryObject.arName" />
+                        </div>
+                        <div *ngIf="(arName.errors && arName.invalid && (arName.dirty || arName.touched))"
+                            class="text text-danger">
+                            الحقل مطلوب
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="enName">الاسم الانجليزي</label>
+                        <div class="input-group">
+                            <input required #enName="ngModel" type="text" class="form-control" id="enName" name="enName"
+                                [(ngModel)]="countryObject.enName" />
+                        </div>
+                        <div *ngIf="(enName.errors && enName.invalid && (enName.dirty || enName.touched))"
+                            class="text text-danger">
+                            الحقل مطلوب
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button [disabled]="!form.valid" type="button" class="btn btn-outline-info btn-sm" (click)="saveAction()">ارسال
+        </button>
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="modal.close('Save click')">اغلاق</button>
+    </div>
+</ng-template>

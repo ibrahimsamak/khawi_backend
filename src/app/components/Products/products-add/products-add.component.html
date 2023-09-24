@@ -1,0 +1,102 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="edit-profile">
+        <div class="col-lg-12">
+            <form class="card">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">اضافة او تعديل المنتجات</h4>
+                    <div class="card-options">
+                        <a class="card-options-collapse" [routerLink]="" data-toggle="card-collapse"><i
+                                class="fe fe-chevron-up"></i>
+                        </a>
+                        <a class="card-options-remove" [routerLink]="" data-toggle="card-remove"><i class="fe fe-x"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form #form="ngForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">اسم المنتج بالعربية</label>
+                                    <input class="form-control" type="text" id="arName" name="arName" #arName="ngModel"
+                                        [(ngModel)]="productDetails.arName">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">اسم المنتج بالانجليزية</label>
+                                    <input class="form-control" type="text" id="enName" name="enName" #enName="ngModel"
+                                        [(ngModel)]="productDetails.enName">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">وصف المنتج بالعربية</label>
+                                    <textarea class="form-control" type="text" id="arDescription" name="arDescription"
+                                        #arDescription="ngModel" [(ngModel)]="productDetails.arDescription"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">وصف المنتج بالانجليزية</label>
+                                    <textarea class="form-control" type="text" id="enDescription" name="enDescription"
+                                        #enDescription="ngModel" [(ngModel)]="productDetails.enDescription"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">التصنيف</label>
+                                    <select required name="category_id" id="category_id" #category_id="ngModel"
+                                        [(ngModel)]="productDetails.category_id" class="form-control">
+                                        <option value="">اختر التصنيف </option>
+                                        <option *ngFor="let item of categories" value="{{item._id}}">{{item.arName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">اختر صورة المنتج</label>
+                                    <input type="file" class="form-control" (change)="processImage($event)">
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group mt-4">
+                                    <label class="">
+                                        <input type="checkbox" id="isNewProduct" name="isNewProduct"
+                                            #isNewProduct="ngModel" [(ngModel)]="productDetails.isNewProduct"> منتج
+                                        للشراء الجديد
+                                    </label>
+                                    <br>
+                                    <label class="">
+                                        <input type="checkbox" id="isReplacement" name="isReplacement"
+                                            #isReplacement="ngModel" [(ngModel)]="productDetails.isReplacement"> منتج
+                                        للاستبدال
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">ترتيب المنتج </label>
+                                    <input class="form-control" type="number" id="sort" name="sort" #sort="ngModel"
+                                        [(ngModel)]="productDetails.sort">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-right">
+                    <button class="btn btn-primary" [class.loader--text]="showLoader"
+                        [disabled]="!form.valid || showLoader" (click)="saveProduct()" type="submit">
+                        <span>
+                            {{ showLoader ? '' : 'حفظ المعلومات'}}
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

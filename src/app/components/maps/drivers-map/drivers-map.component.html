@@ -1,0 +1,25 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>التوزيع الجغرافي للسائقين حاليا</h5>
+                </div>
+                <div class="card-body">
+                    <div class="map-js-height">
+                        <agm-map [latitude]="lat_m1" [longitude]="lng_m1" [zoom]="zoom_m1" [scrollwheel]="true"
+                            [disableDoubleClickZoom]="false" [mapDraggable]="true" [zoomControl]="true" 
+                            [mapTypeControl]="true" [mapTypeId]="'hybrid'">
+                            <agm-marker *ngFor="let m of markers; let i = index" [latitude]="m.lat" [longitude]="m.lng" [iconUrl]="m.icon"
+                                [label]="m.label">
+                                <agm-info-window>
+                                    <strong>{{m.nameData}} </strong>
+                                </agm-info-window>
+                            </agm-marker>
+                        </agm-map>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

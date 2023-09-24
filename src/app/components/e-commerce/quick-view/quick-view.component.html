@@ -1,0 +1,61 @@
+<div class="modal-header">
+  <div class="product-box row">
+    <div class="product-img col-md-6">
+      <!-- <img class="img-fluid" [src]="[productDetail?.images[0]]" alt=""> -->
+      <ks-carousel [id]="100" [images]="productDetail?.imagesRect" [dotsConfig]="{visible: false}"
+        [carouselConfig]="{maxHeight: '600px', keyboardEnable: true}" [previewConfig]="{maxHeight: '125px'}">
+      </ks-carousel>
+    </div>
+    <div class="product-details col-md-6 text-left">
+      <h3>{{productDetail?.arName}}</h3>
+      التقييم: <ngb-rating [max]="5" [readonly]="true" [rate]="productDetail?.rate" class="rating-size-product">
+      </ngb-rating>
+      <hr>
+      <h4>مزود الخدمة: {{productDetail?.provider_id?.full_name}}</h4>
+      <h6>المكان: {{productDetail?.place_id?.arName}}</h6>
+      <h6>الستايل: {{productDetail?.style_id?.arName}}</h6>
+      <div class="product-price">
+        <del *ngIf="productDetail?.discountPrice != 0">{{productDetail?.discountPrice |
+          currency:productService?.currency:'symbol'}}
+        </del>
+        <div *ngIf="productDetail.price"> {{productDetail?.price |currency:productService?.currency:'symbol'}}</div>
+      </div>
+      <div class="product-view">
+        <h6 class="f-w-600">تفاصيل المنتج</h6>
+        <p class="mb-0">
+          {{productDetail.arDescription}}
+        </p>
+      </div>
+      <!-- <div class="product-size">
+        <ul>
+          <li>
+            <button class="btn btn-outline-light" type="button">M</button>
+          </li>
+          <li>
+            <button class="btn btn-outline-light" type="button">L</button>
+          </li>
+          <li>
+            <button class="btn btn-outline-light" type="button">Xl</button>
+          </li>
+        </ul>
+      </div> -->
+      <div class="product-qnty">
+        <!-- <h6 class="f-w-600">Quantity</h6>
+        <div class="qty-box1">
+          <div class="input-group">
+            <i class="fa fa-minus btnGtr1" (click)="decrement()"></i>
+            <input class="touchspin1 text-center" #qty name="quantity" type="text" value="{{counter}}">
+            <i class="fa fa-plus btnLess1" (click)="increment()"></i>
+          </div>
+        </div> -->
+        <!-- <div class="addcart-btn">
+          <button class="btn btn-primary-gradien m-r-10" type="button" data-original-title="btn btn-info-gradien"
+            [routerLink]="['/ecommerce/add-cart']" (click)=addToCart(productDetail,qty.value) title="">
+            Add To Cart</button>
+          <button class="btn btn-success-gradien" type="button" data-original-title="btn btn-info-gradien"
+            (click)=buyNow(productDetail,qty.value) title="">Buy Now</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

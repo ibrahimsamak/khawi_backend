@@ -1,0 +1,161 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12 col-xl-12">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="custom-datepicker custom-datepicker-dropdown">
+                                        <div class="form-group mb-0">
+                                            <label for="country_id">من تاريخ</label>
+                                            <div class="input-group">
+                                                <input class="form-control" placeholder="من تاريخ" id="dt_from1"
+                                                    name="dt_from1" [(ngModel)]="dt_from" ngbDatepicker
+                                                    #f="ngbDatepicker">
+                                                <div class="input-group-append">
+                                                    <button class="btn calendar" (click)="f.toggle()" type="button"><i
+                                                            class="fa fa-calendar"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="custom-datepicker custom-datepicker-dropdown">
+                                        <div class="form-group mb-0">
+                                            <label for="country_id">الى تاريخ</label>
+                                            <div class="input-group">
+                                                <input class="form-control" placeholder="الى تاريخ" id="dt_to1"
+                                                    name="dt_to1" [(ngModel)]="dt_to" ngbDatepicker #f2="ngbDatepicker">
+                                                <div class="input-group-append">
+                                                    <button class="btn calendar" (click)="f2.toggle()" type="button"><i
+                                                            class="fa fa-calendar"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2 mr-2">
+                                <button type="button" class="btn btn-outline-info btn-sm"
+                                    (click)="search()">بحث</button>&nbsp;
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="reset()">تفريغ
+                                    الحقول</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>التعليقات على الطلبات</h5>
+                </div>
+                <div class="todo">
+                    <div class="todo-list-wrapper">
+                        <div class="todo-list-container">
+                            <div class="table-responsive">
+                                <table class="table card-table table-vcenter text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>الطلب</th>
+                                            <th>المستخدم</th>
+                                            <th>مزود الخدمة</th>
+                                            <th>السائق</th>
+                                            <th>التاريخ</th>
+                                            <th>التقييم</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of comments">
+                                            <td>
+                                                {{item?.order_id?.Order_no}}
+                                            </td>
+                                            <td>
+                                                {{item?.user_id?.full_name}}
+                                            </td>
+                                            <td>
+                                                {{item?.supplier_id?.name}}
+                                            </td>
+                                            <td>
+                                                {{item?.employee_id?.full_name}}
+                                            </td>
+                                            <td>
+                                                {{item.createAt | date:'dd-MM-yyyy'}}
+                                            </td>
+                                            <td>
+                                                <ngb-rating [max]="5" [readonly]="true"
+                                                    [(rate)]="item.rate_from_user_to_provider" class="rating-size">
+                                                </ngb-rating>
+                                            </td>
+                                            <td class="text-right">
+                                                <a class="btn btn-primary btn-sm cursor"
+                                                    (click)="openDetails(rate,item.note_from_user_to_provider)">
+                                                    <i class="fa fa-comment"></i> التعليق </a>&nbsp;
+                                                <a class="btn btn-danger btn-sm cursor"
+                                                    (click)="deleteComment(item._id)">
+                                                    <i class="fa fa-trash"></i> حذف </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <ngb-pagination *ngIf="comments.length > 0" [collectionSize]="collectionCount" #numPages
+                                [pageSize]="limit" [(page)]="page" (pageChange)="onPageChange(page)">
+                            </ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">تفاصيل الطلب</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" style="text-align: right;">
+        <app-order-details [orderDetails]="orderDetails"></app-order-details>
+    </div>
+</ng-template>
+
+
+<ng-template #rate let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">التعليق</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" style="text-align: right;">
+        <form #form="ngForm">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="input-group">
+                            {{notes}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="modal.close('Save click')">اغلاق</button>
+    </div>
+</ng-template>

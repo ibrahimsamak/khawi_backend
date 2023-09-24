@@ -1,0 +1,292 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12 col-xl-12">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="country_id">رقم الطلب</label>
+                                        <div class="input-group">
+                                            <input name="Order_no" id="Order_no" #Order_no="ngModel"
+                                                [(ngModel)]="searchObject.Order_no" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="country_id"> مزود الخدمة </label>
+                                        <div class="input-group">
+                                            <select name="country_id1" id="provider_id" #provider_id="ngModel"
+                                                [(ngModel)]="searchObject.provider_id" class="form-control">
+                                                <option value=""> اختر المزود</option>
+                                                <option *ngFor="let item of stores" value="{{item._id}}">
+                                                    {{item.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="custom-datepicker custom-datepicker-dropdown">
+                                        <div class="form-group mb-0">
+                                            <label for="country_id">من تاريخ</label>
+                                            <div class="input-group">
+                                                <input class="form-control" placeholder="من تاريخ" id="dt_from1"
+                                                    name="dt_from1" [(ngModel)]="dt_from" ngbDatepicker
+                                                    #f="ngbDatepicker">
+                                                <div class="input-group-append">
+                                                    <button class="btn calendar" (click)="f.toggle()" type="button"><i
+                                                            class="fa fa-calendar"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="custom-datepicker custom-datepicker-dropdown">
+                                        <div class="form-group mb-0">
+                                            <label for="country_id">الى تاريخ</label>
+                                            <div class="input-group">
+                                                <input class="form-control" placeholder="الى تاريخ" id="dt_to1"
+                                                    name="dt_to1" [(ngModel)]="dt_to" ngbDatepicker #f2="ngbDatepicker">
+                                                <div class="input-group-append">
+                                                    <button class="btn calendar" (click)="f2.toggle()" type="button"><i
+                                                            class="fa fa-calendar"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2 mr-3">
+                                <button type="button" class="btn btn-outline-info btn-sm"
+                                    (click)="search()">بحث</button>&nbsp;
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="reset()">تفريغ
+                                    الحقول</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>قائمة الطلبات</h5>
+                </div>
+                <div class="todo">
+                    <div class="todo-list-wrapper">
+                        <div class="todo-list-container">
+                            <!-- [(ngModel)]="currentJustify" -->
+
+                            <div class="btn-group btn-group-toggle mt-0 mb-0 tabset-group-btn-xs" ngbRadioGroup>
+                                <label ngbButtonLabel class="btn-outline-primary btn-sm btn-position"
+                                    (click)="changeStatus(1)">
+                                    <input ngbButton type="radio" value="start">طلب جديد
+                                </label>
+                                <label ngbButtonLabel class="btn-outline-primary btn-sm btn-position"
+                                    (click)="changeStatus(2)">
+                                    <input ngbButton type="radio" value="center">موافق عليه
+                                </label>
+                                <label ngbButtonLabel class="btn-outline-primary btn-sm btn-position"
+                                    (click)="changeStatus(3)">
+                                    <input ngbButton type="radio" value="end">قيد التنفيذ
+                                </label>
+                                <label ngbButtonLabel class="btn-outline-primary btn-sm btn-position"
+                                    (click)="changeStatus(4)">
+                                    <input ngbButton type="radio" value="fill">مكتمل
+                                </label>
+                                <label ngbButtonLabel class="btn-outline-primary btn-sm btn-position"
+                                    (click)="changeStatus(5)">
+                                    <input ngbButton type="radio" value="justified">ملغي
+                                </label>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">المشتري</th>
+                                            <th scope="col">مزود الخدمة</th>
+                                            <th scope="col">التاريخ</th>
+                                            <th scope="col">النوع</th>
+                                            <th scope="col">التوصيل</th>
+                                            <th scope="col">المجموع</th>
+                                            <th scope="col">الحالة</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of orders;let i = index">
+                                            <td>{{item?.Order_no}}</td>
+                                            <td>{{item?.user_id?.full_name}}<br>{{item?.user_id?.phone_number}}</td>
+                                            <td>{{item?.supplier_id?.name}}</td>
+                                            <td>{{item?.dt_date | date:'dd/MM/yyyy'}}
+                                                <br>
+                                                {{item?.dt_time}}
+                                            </td>
+                                            <td>{{item?.OrderType == 1 ? 'شراء' : 'تبديل'}}</td>
+                                            <td>
+                                                <label *ngIf="item.isExpress">توصيل سريع</label>
+                                                <label *ngIf="!item.isExpress">توصيل عادي</label>
+                                            </td>
+                                            <td>{{item?.Total | number : '1.2-2'}} ر.س</td>
+                                            <td>
+                                                <span *ngIf="item.StatusId == 1" class="status-icon bg-info">طلب
+                                                    جديد</span>
+                                                <span *ngIf="item.StatusId == 2" class="status-icon bg-info">موافق
+                                                    عليه</span>
+                                                <span *ngIf="item.StatusId == 3" class="status-icon bg-info">قيد
+                                                    التنفيذ</span>
+                                                <span *ngIf="item.StatusId == 4"
+                                                    class="status-icon bg-success">مكتمل</span>
+                                                <span *ngIf="item.StatusId == 5"
+                                                    class="status-icon bg-danger">ملغي</span>
+                                            </td>
+                                            <td>
+                                                <button *ngIf="item.StatusId == 1 || item.StatusId == -1" placement="top"
+                                                    ngbTooltip="الموافقة على الطلب" class="btn-success-gradien btn-sm"
+                                                    (click)="openOrderDriver(employee,item)">
+                                                    <i class="fa fa-pencil"></i>
+                                                </button>&nbsp;
+                                                <button *ngIf="item.StatusId == 1 || item.StatusId == -1" placement="top" 
+                                                    ngbTooltip="الغاء الطلب" class="btn-primary-gradien btn-sm"
+                                                    (click)="openOrder(cancel,item)">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>&nbsp;
+                                                <!-- <button *ngIf="item.StatusId == 2" placement="top"
+                                                    ngbTooltip="تحويل الطلب الي قيد التنفيذ"
+                                                    class="btn btn-success-gradien" (click)="updateOrder(item._id,3)">
+                                                    <i class="fa fa-pencil"></i>
+                                                </button>&nbsp; -->
+                                                <!-- <button *ngIf="item.StatusId == 3" placement="top"
+                                                    ngbTooltip="تحويل الطلب الى مكتمل" class="btn btn-success-gradien"
+                                                    (click)="updateOrder(item._id,4)">
+                                                    <i class="fa fa-pencil"></i>
+                                                </button>&nbsp; -->
+                                                <button placement="top" ngbTooltip="عرض تفاصيل الطلب"
+                                                    class="btn-warning-gradien btn-sm" (click)="openOrder(content,item)">
+                                                    <i class="fa fa-list"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <ngb-pagination *ngIf="orders.length > 0" [collectionSize]="collectionCount" #numPages
+                                [pageSize]="limit" [(page)]="page" (pageChange)="onPageChange(page)">
+                            </ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">تفاصيل الطلب</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" style="text-align: right;">
+        <app-order-details [orderDetails]="orderDetails"></app-order-details>
+    </div>
+</ng-template>
+
+<ng-template #cancel let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">الغاءالطلب</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" style="text-align: right;">
+        <form #form="ngForm">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>{{orderDetails.order_no}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="arName">السبب</label>
+                        <div class="input-group">
+                            <input required #reaseon1="ngModel" type="text" class="form-control" id="reaseon1"
+                                name="reaseon1" [(ngModel)]="reaseon" />
+                        </div>
+                        <div *ngIf="(reaseon1.errors && reaseon1.invalid && (reaseon1.dirty || reaseon1.touched))"
+                            class="text text-danger">
+                            الحقل مطلوب
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button [disabled]="!form.valid" type="button" class="btn btn-outline-info btn-sm"
+            (click)="updateOrder(orderDetails._id,5)">ارسال
+        </button>
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="modal.close('Save click')">اغلاق</button>
+    </div>
+</ng-template>
+
+<ng-template #employee let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">اختر السائق</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" style="text-align: right;">
+        <form #form="ngForm">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>{{orderDetails.Order_no}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="arName">السائق</label>
+                        <div class="input-group">
+                            <select required name="employee_id1" id="employee_id1" #employee_id1="ngModel"
+                                [(ngModel)]="employee_id" class="form-control">
+                                <option value=""> اختر السائق</option>
+                                <option *ngFor="let item of employees" value="{{item._id}}">
+                                    {{item.full_name}}</option>
+                            </select>
+
+                        </div>
+                        <div *ngIf="(employee_id1.errors && employee_id1.invalid && (employee_id1.dirty || employee_id1.touched))"
+                            class="text text-danger">
+                            الحقل مطلوب
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button [disabled]="!form.valid" type="button" class="btn btn-outline-info btn-sm"
+            (click)="updateOrder(orderDetails._id,2)">ارسال
+        </button>
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="modal.close('Save click')">اغلاق</button>
+    </div>
+</ng-template>

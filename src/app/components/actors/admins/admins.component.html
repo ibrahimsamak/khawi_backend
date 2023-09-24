@@ -1,0 +1,56 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>الادارة</h5>
+                </div>
+                <div class="todo">
+                    <div class="todo-list-wrapper">
+                        <div class="todo-list-container">
+                            <div class="mark-all-tasks">
+                                <div class="mark-all-tasks-container">
+                                    <button title="اضافة مدير جديد" class="btn btn-success-gradien"
+                                        (click)="addNewAdmin()">
+                                        <i class="fa fa-plus"></i> اضافة مدير جديد
+                                    </button>&nbsp;
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">الاسم</th>
+                                            <th scope="col">البريد الالكتروني</th>
+                                            <th scope="col">رقم الجوال</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of admins;let i = index">
+                                            <td>{{item.full_name}}</td>
+                                            <td>{{item.email}}</td>
+                                            <td>{{item.phone_number}}</td>
+                                            <td>
+                                                <button placement="top" ngbTooltip="تعديل" class="btn btn-info-gradien"
+                                                    (click)="editAdmin(item._id)">
+                                                    <i class="fa fa-pencil"></i>
+                                                </button>&nbsp;
+                                                <button placement="top" ngbTooltip="حذف" class="btn btn-danger-gradien"
+                                                    (click)="deleteAdmin(item._id)">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <ngb-pagination *ngIf="admins.length > 0" [collectionSize]="collectionCount" #numPages
+                                [pageSize]="limit" [(page)]="page" (pageChange)="onPageChange(page)"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

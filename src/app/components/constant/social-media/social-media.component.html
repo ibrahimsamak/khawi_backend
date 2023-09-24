@@ -1,0 +1,104 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>التواصل الاجتماعي</h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">الاسم العربي</th>
+                                <th scope="col">الاسم الانجليزي </th>
+                                <th scope="col">القيمة</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of contacts;let i = index">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{item.arName}}</td>
+                                <td>{{item.enName}}</td>
+                                <td>{{item.data}}</td>
+                                <td>
+                                    <button placement="top" ngbTooltip="تعديل" class="btn btn-info-gradien"
+                                        (click)="openSettings(content,item)">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">معلومات التواصل</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" style="text-align: right;">
+        <form #form="ngForm">
+            <div class="row">
+                <div class="col-md-12">
+                    <h6>{{contactObject.name}}</h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="arName">الاسم العربي</label>
+                        <div class="input-group">
+                            <input required #arName="ngModel" type="text" class="form-control" id="arName" name="arName"
+                                [(ngModel)]="contactObject.arName">
+                        </div>
+                        <div *ngIf="(arName.errors && arName.invalid && (arName.dirty || arName.touched))"
+                            class="text text-danger">
+                            الحقل مطلوب
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="enName">الاسم الانجليزي</label>
+                        <div class="input-group">
+                            <input required #enName="ngModel" type="text" class="form-control" id="enName" name="enName"
+                                [(ngModel)]="contactObject.enName">
+                        </div>
+                        <div *ngIf="(enName.errors && enName.invalid && (enName.dirty || enName.touched))"
+                            class="text text-danger">
+                            الحقل مطلوب
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="data">القيمة</label>
+                        <div class="input-group">
+                            <input required #data="ngModel" type="text" class="form-control" id="data" name="data"
+                                [(ngModel)]="contactObject.data">
+                        </div>
+                        <div *ngIf="(data.errors && data.invalid && (data.dirty || data.touched))"
+                            class="text text-danger">
+                            الحقل مطلوب
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button [disabled]="!form.valid" type="button" class="btn btn-outline-info btn-sm"
+            (click)="saveAction()">حفظ</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="modal.close('Save click')">اغلاق</button>
+    </div>
+</ng-template>

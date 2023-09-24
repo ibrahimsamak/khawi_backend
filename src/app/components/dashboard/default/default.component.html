@@ -1,0 +1,224 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xl-12 xl-100">
+      <div class="row">
+        <div class="owl-carousel owl-theme owl-loaded owl-drag" id="owl-carousel-14">
+          <owl-carousel-o [options]="customOptions">
+            <ng-template carouselSlide [id]="slide.id" *ngFor="let slide of slidesStore">
+              <div class="item">
+                <div class="card">
+                  <div class="card-body ecommerce-icons text-center">
+                    <app-feather-icons [icon]="slide.icon"></app-feather-icons>
+                    <div><span>{{slide.title}}</span></div>
+                    <h4 class="font-primary mb-0 counter" [CountTo]=slide.number [from]="0" [duration]="0.5"></h4>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </owl-carousel-o>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-xl-3 col-lg-6 col-md-3">
+      <div class="card o-hidden">
+        <div class="bg-success b-r-4 card-body">
+          <div class="media static-top-widget">
+            <div class="align-self-center text-center">
+              <app-feather-icons [icon]="'users'"></app-feather-icons>
+            </div>
+            <div class="media-body"><span class="m-0">المستخدمين</span>
+              <h4 class="mb-0 counter" [CountTo]="Users" [from]="0" [duration]="1">{{Users}}</h4><i class="icon-bg"
+                data-feather="users"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-xl-3 col-lg-6 col-md-3">
+      <div class="card o-hidden">
+        <div class="bg-info b-r-4 card-body">
+          <div class="media static-top-widget">
+            <div class="align-self-center text-center">
+              <app-feather-icons [icon]="'box'"></app-feather-icons>
+            </div>
+            <div class="media-body"><span class="m-0">مزودين الخدمات</span>
+              <h4 class="mb-0 counter" [CountTo]="Supplier" [from]="0" [duration]="2">{{Supplier}}</h4><i
+                class="icon-bg" data-feather="box"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-xl-3 col-lg-6 col-md-3">
+      <div class="card o-hidden">
+        <div class="bg-secondary b-r-4 card-body">
+          <div class="media static-top-widget">
+            <div class="align-self-center text-center">
+              <app-feather-icons [icon]="'shopping-bag'"></app-feather-icons>
+            </div>
+            <div class="media-body"><span class="m-0">السائقين</span>
+              <h4 class="mb-0 counter" [CountTo]="Employee" [from]="0" [duration]="1">{{Employee}}</h4><i
+                class="icon-bg" data-feather="shopping-bag"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-xl-3 col-lg-6 col-md-3">
+      <div class="card o-hidden">
+        <div class="bg-primary b-r-4 card-body">
+          <div class="media static-top-widget">
+            <div class="align-self-center text-center">
+              <app-feather-icons [icon]="'user'"></app-feather-icons>
+            </div>
+            <div class="media-body"><span class="m-0">المدراء</span>
+              <h4 class="mb-0 counter" [CountTo]="Admins" [from]="0" [duration]="1">{{Admins}}</h4><i class="icon-bg"
+                data-feather="user"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6">
+      <div class="card">
+        <div class="card-header card-header-border">
+          <div class="row">
+            <div class="col-sm-6">
+              <h5>أحدث المستخدمين</h5>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="new-users">
+            <div class="media" *ngFor="let item of users">
+              <img class="rounded-circle image-radius m-r-15 img-60 "
+                src="{{item.image ? item.image  : 'assets/images/user/1.jpg'}}" alt="">
+              <div class="media-body">
+                <h6 class="mb-0 f-w-700">{{item.phone_number}}</h6>
+                <p>{{item.os}}</p>
+              </div>
+              <span class="pull-right">
+                <button (click)="visitUserProfile(item._id)" class="btn btn-pill btn-outline-light">التفاصيل</button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6">
+      <div class="card">
+        <div class="card-header card-header-border">
+          <div class="row">
+            <div class="col-sm-6">
+              <h5>الطلبات الجديدة</h5>
+            </div>
+          </div>
+        </div>
+        <div class="card-body recent-notification">
+          <div class="media" *ngFor="let item of orders">
+            <h6>{{item.createAt | date:'dd/MM/yyyy'}}</h6>
+            <div class="media-body">
+              <span>
+                ({{item.Total}} ر.س) &nbsp; {{item?.provider_id?.full_name}}
+              </span>
+              <p class="f-12">{{item.Order_no}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-xl-6" *ngIf="userType == UserType.ADMIN || userType == UserType.STORE">
+      <div class="card">
+        <div class="card-header">
+          <h5>المنتجات حسب التصنيفات</h5>
+        </div>
+        <div class="card-body chart-block">
+          <ngx-charts-pie-chart [scheme]="colorScheme2" [results]="single1" [legend]="false" [explodeSlices]="false"
+            [labels]="false" [doughnut]="false" [gradient]="true">
+          </ngx-charts-pie-chart>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-xl-6"
+      *ngIf="userType == UserType.ADMIN || userType == UserType.IMPLEMENTER || userType == UserType.DESIGNER">
+      <div class="card">
+        <div class="card-header">
+          <h5>المنتجات حسب مربعات التغطية</h5>
+        </div>
+        <div class="card-body chart-block">
+          <ngx-charts-pie-chart [scheme]="colorScheme3" [results]="single2" [legend]="false" [explodeSlices]="false"
+            [labels]="false" [doughnut]="false" [gradient]="true">
+          </ngx-charts-pie-chart>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="media chart-university">
+            <div class="media-body">
+              <h3 class="mb-0">
+                <app-feather-icons [icon]="'shopping-cart'"></app-feather-icons><span class="counter" [CountTo]="New"
+                  [from]="0" [duration]="2"></span>
+              </h3>
+              <p>طلب شراء جديد مكتمل</p>
+            </div>
+            <div class="small-bar">
+              <!-- <x-chartist class="ct-small-left flot-chart-container" [data]="chart4.data" [type]="chart4.type"
+                [options]="chart4.options" [events]="chart4.events">
+              </x-chartist> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="media chart-university">
+            <div class="media-body">
+              <h3 class="mb-0">
+                <app-feather-icons [icon]="'refresh-ccw'"></app-feather-icons><span class="counter"
+                  [CountTo]="Replacment" [from]="0" [duration]="2"></span>
+              </h3>
+              <p>طلب استبدال مكتمل</p>
+            </div>
+            <div class="small-bar">
+              <!-- <x-chartist class="ct-small-right flot-chart-container" [data]="chart5.data" [type]="chart5.type"
+                [options]="chart5.options" [events]="chart5.events">
+              </x-chartist> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-xl-12 col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5>معدل الطلبات من المزودين</h5>
+        </div>
+        <div class="card-body chart-block">
+          <ngx-charts-bar-vertical-normalized [scheme]="colorScheme4" [schemeType]="'ordinal'" [results]="charts3"
+            [gradient]="false" [xAxis]="true" [yAxis]="true" [legend]="false" [legendPosition]="'below'"
+            [showXAxisLabel]="false" [showYAxisLabel]="false" [xAxisLabel]="' '" [yAxisLabel]="' '">
+          </ngx-charts-bar-vertical-normalized>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="col-xl-12 col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5>معدل التسجيل بالتطبيق</h5>
+        </div>
+        <div class="card-body chart-block">
+          <ngx-charts-area-chart [scheme]="areaChartcolorScheme" [results]="singleEarnPaid"
+            [gradient]="areaChartgradient" [xAxis]="areaChartshowXAxis" [yAxis]="areaChartshowYAxis"
+            [showXAxisLabel]="areaChartshowXAxisLabel" [showYAxisLabel]="areaChartshowYAxisLabel"
+            [xAxisLabel]="areaChartxAxisLabel">
+          </ngx-charts-area-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

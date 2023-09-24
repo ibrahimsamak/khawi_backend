@@ -1,0 +1,83 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+.ngx-toastr {
+  text-align: right;
+}
+
+.update {
+  color: rgb(53, 151, 231);
+}
+
+.remove {
+  color: rgb(243, 64, 64);
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+.img-60 {
+  width: 60px !important;
+  height: 60px !important;
+}
+
+.img-100 {
+  width: 100px !important;
+  height: 100px !important;
+}
+tr {
+  line-height: 25px;
+  min-height: 25px;
+  height: 25px;
+}
+
+.loader--text:after {
+  content: "جاري التنفيذ .. ";
+  // font-weight: bold;
+  animation-name: loading-text;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  cursor: not-allowed;
+  pointer-events: none;
+  .btn:not(:disabled):not(.disabled) {
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+@keyframes loader {
+  15% {
+    transform: translateX(0);
+  }
+  45% {
+    transform: translateX(230px);
+  }
+  65% {
+    transform: translateX(230px);
+  }
+  95% {
+    transform: translateX(0);
+  }
+}
+@keyframes loading-text {
+  0% {
+    content: "جاري التنفيذ .. ";
+  }
+  25% {
+    content: "جاري التنفيذ .. ";
+  }
+  50% {
+    content: "جاري التنفيذ .. ";
+  }
+  75% {
+    content: "جاري التنفيذ .. ";
+  }
+}
+
+.input-group > .form-control,
+.input-group > .form-control-plaintext,
+.input-group > .custom-select,
+.input-group > .custom-file {
+  padding-bottom: 0px !important;
+}

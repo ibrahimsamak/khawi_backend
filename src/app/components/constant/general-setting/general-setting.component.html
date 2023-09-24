@@ -1,0 +1,107 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>الأعدادات العامة</h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">العنوان</th>
+                                <th scope="col">الحد الأدنى</th>
+                                <th scope="col">الحد الأعلى</th>
+                                <th scope="col">القيمة</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of settings;let i = index">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{item.name}}</td>
+                                <td>{{item.min}}</td>
+                                <td>{{item.max}}</td>
+                                <td>{{item.value}}</td>
+                                <td>
+                                    <button placement="top" ngbTooltip="تعديل" class="btn btn-info-gradien"
+                                        (click)="openSettings(content,item)">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">الاعدادات العامة</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" style="text-align: right;">
+        <form #form="ngForm">
+            <div class="row">
+                <div class="col-md-12">
+                    <h6>{{settingObje.name}}</h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="min">الحد الادنى</label>
+                        <div class="input-group">
+                            <input required #min="ngModel" type="number" min="0" class="form-control" id="min"
+                                name="min" [(ngModel)]="settingObje.min"
+                                pattern="^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$">
+                        </div>
+                        <div *ngIf="(min.errors && min.invalid && (min.dirty || min.touched))" class="text text-danger">
+                            الحقل مطلوب
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="max">الحد الأعلى</label>
+                        <div class="input-group">
+                            <input required #max="ngModel" type="number" min="0" class="form-control" id="max"
+                                name="max" [(ngModel)]="settingObje.max"
+                                pattern="^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$">
+                        </div>
+                        <div *ngIf="(max.errors && max.invalid && (max.dirty || max.touched))" class="text text-danger">
+                            الحقل مطلوب
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="value">القيمة</label>
+                        <div class="input-group">
+                            <input required #value="ngModel" type="number" min="0" class="form-control" id="value"
+                                name="value" [(ngModel)]="settingObje.value"
+                                pattern="^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$">
+                        </div>
+                        <div *ngIf="(value.errors && value.invalid && (value.dirty || value.touched))"
+                            class="text text-danger">
+                            الحقل مطلوب
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button [disabled]="!form.valid" type="button" class="btn btn-outline-info btn-sm"
+            (click)="saveAction()">حفظ</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="modal.close('Save click')">اغلاق</button>
+    </div>
+</ng-template>
