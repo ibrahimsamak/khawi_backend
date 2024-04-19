@@ -11,7 +11,7 @@ import { ConstantServiceWrapper } from "src/app/service/ConstantServiceWrapper.s
 })
 export class OrderMapComponent implements OnInit {
   searchObject = {
-    status_id: 1,
+    status_id: 'new',
   };
 
   // Map1
@@ -39,15 +39,15 @@ export class OrderMapComponent implements OnInit {
         let arr = x[appConstant.ITEMS] as any[];
         arr.forEach((element) => {
           let obj = {
-            lat: element.lat,
-            lng: element.lng,
+            lat: element.f_lat,
+            lng: element.f_lng,
             label: "",
-            nameData: element.user_id.full_name + " - " + element.employee_id ? element.employee_id.full_name : "",
+            nameData: element.user.full_name,
             draggable: false,
           };
           this.markers.push(obj);
-          this.lat_m1 = element.lat;
-          this.lng_m1 = element.lng;
+          this.lat_m1 = element.f_lat;
+          this.lng_m1 = element.f_lng;
         });
       } else {
         this.toastr.error(x[appConstant.MESSAGE]);

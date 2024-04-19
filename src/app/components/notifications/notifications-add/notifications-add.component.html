@@ -17,19 +17,7 @@
                     <div class="card-body">
                         <form #form="ngForm">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label">الجهة المرسل اليها</label>
-                                        <select required name="type" id="type" #type="ngModel"
-                                            [(ngModel)]="notificationsDetails.type" class="form-control">
-                                            <option value="">-- اختر -- </option>
-                                            <option value="1">الزبائن</option>
-                                            <option value="2">مزودين الغاز</option>
-                                            <option value="3">السائقين</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="form-label">عنوان التنبيه</label>
                                         <input required class="form-control" type="text" id="title" name="title"

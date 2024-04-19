@@ -97,16 +97,98 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <div class="checkbox-animated">
+                                        <label class="d-block" for="chk-ani">
+                                            <input class="checkbox_animated" id="chk-ani" type="checkbox"
+                                                [checked]="userDetails.hasCar"
+                                                (change)="userDetails.hasCar = !userDetails.hasCar">
+                                                <strong>لديه سيارة؟</strong>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3" *ngIf="userDetails.hasCar">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">نوع السيارة</label>
+                                        <input class="form-control" type="text" id="carType" name="carType" #carType="ngModel" [(ngModel)]="userDetails.carType">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">موديل السيارة</label>
+                                        <input class="form-control" type="text" id="carModel" name="carModel" #carModel="ngModel" [(ngModel)]="userDetails.carModel">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">رقم السيارة</label>
+                                        <input class="form-control" type="text" id="carNumber" name="carNumber" #carNumber="ngModel" [(ngModel)]="userDetails.carNumber">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">لون السيارة</label>
+                                        <input  class="form-control" type="text" id="carColor" name="carColor" #carColor="ngModel" [(ngModel)]="userDetails.carColor">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3" *ngIf="userDetails.hasCar">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">صورة السيارة من الامام</label>
+                                        <a target="_blank" href="{{userDetails.carFrontImage}}" class="form-control">عرض</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">صورة السيارة من الخلف</label>
+                                        <a target="_blank" href="{{userDetails.carBackImage}}" class="form-control">عرض</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">صورة السيارة من اليمين</label>
+                                        <a target="_blank" href="{{userDetails.carRightImage}}" class="form-control">عرض</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">صورة السيارة من اليسار</label>
+                                        <a target="_blank" href="{{userDetails.carLeftImage}}" class="form-control">عرض</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3" *ngIf="userDetails.hasCar">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">صورة الهوية</label>
+                                        <a target="_blank" href="{{userDetails.identityImage}}" class="form-control">عرض</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">صورة رخصة القيادة</label>
+                                        <a target="_blank" href="{{userDetails.licenseImage}}" class="form-control">عرض</a>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
 
                     </div>
                     <div class="card-footer text-right">
+                        <button *ngIf="!userDetails.isApprove && userDetails.hasCar" style="margin-left: 10px;" class="btn btn-outline-success" (click)="approveUser()" type="submit">
+                            <span>تفعيل المستخدم</span>
+                         </button>
                         <button class="btn btn-primary" [class.loader--text]="showLoader"
                             [disabled]="!form.valid || showLoader" (click)="saveUser()" type="submit">
                             <span>
                                 {{ showLoader ? '' : 'حفظ المعلومات'}}
                             </span>
-                        </button>
+                        </button >
+       
                     </div>
                 </form>
             </div>
@@ -116,7 +198,6 @@
                         <h5 class="pull-left">نشاطات المستخدم</h5>
                     </div> -->
                     <div class="card-body">
-                        <!-- class="tabbed-card" -->
                         <ngb-tabset #t="ngbTabset" (tabChange)="beforeChange($event)" type="pills">
                             <ngb-tab id="tab-orders">
                                 <ng-template ngbTabTitle class="pull-right nav nav-pills nav-primary">
@@ -169,7 +250,7 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            <ngb-pagination *ngIf="orders.length > 0"
+                                            <ngb-pagination *ngIf="orders.length > 0"  [maxSize]="10"
                                                 [collectionSize]="orderCollectionCount" #orders [pageSize]="orderLimit"
                                                 [(page)]="orderPage" (pageChange)="onOrderPageChange(orderPage)">
                                             </ngb-pagination>
@@ -177,88 +258,6 @@
                                     </div>
                                 </ng-template>
                             </ngb-tab>
-                            <ngb-tab id="tab-addresses">
-                                <ng-template ngbTabTitle class="pull-right nav nav-pills nav-primary">
-                                    <i class="icofont icofont-speech-addresses"></i> دفتر العناوين
-                                </ng-template>
-                                <ng-template ngbTabContent class="tab-content">
-                                    <div class="tab-pane fade show">
-                                        <div class="table-responsive">
-                                            <table class="table card-table table-vcenter text-nowrap">
-                                                <thead>
-                                                    <tr>
-                                                        <th>الاسم</th>
-                                                        <th>العنوان</th>
-                                                        <th>الخصم</th>
-                                                        <th>افتراضي؟</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr *ngFor="let item of addresses">
-                                                        <td>
-                                                            {{item.title}}
-                                                        </td>
-                                                        <td>
-                                                            {{item.address}}
-                                                        </td>
-                                                        <td>
-                                                            {{item.discount}}
-                                                        </td>
-                                                        <td>
-                                                            <span *ngIf="item.isDefault">نعم</span>
-                                                            <span *ngIf="!item.isDefault">لا</span>
-                                                        </td>
-
-                                                        <td class="text-right">
-                                                            <a class="btn btn-primary btn-sm cursor"
-                                                                (click)="openDetails(content,item)">
-                                                                <i class="fa fa-percentage"></i> استعراض </a>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <ngb-pagination *ngIf="addresses.length > 0"
-                                                [collectionSize]="rateCollectionCount" #addresses [pageSize]="rateLimit"
-                                                [(page)]="ratePage" (pageChange)="onRatePageChange(ratePage)">
-                                            </ngb-pagination>
-                                        </div>
-                                    </div>
-                                </ng-template>
-                            </ngb-tab>
-                            <!--  <ngb-tab id="tab-followings">
-                                <ng-template ngbTabTitle class="pull-right nav nav-pills nav-primary"><i
-                                        class="icofont icofont-users-alt-2"></i> المتابعة </ng-template>
-                                <ng-template ngbTabContent class="tab-content">
-                                    <div class="tab-pane fade show">
-                                        <div class="table-responsive">
-                                            <table class="table card-table table-vcenter text-nowrap">
-                                                <thead>
-                                                    <tr>
-                                                        <th>الصورة</th>
-                                                        <th>المصمم او المنفذ</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr *ngFor="let item of followings">
-                                                        <td>
-                                                            <img class="img-60 rounded-circle" [src]="item?.image">
-                                                        </td>
-                                                        <td>
-                                                            {{item?.full_name}}
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <ngb-pagination *ngIf="followings.length > 0"
-                                                [collectionSize]="followCollectionCount" #followings
-                                                [pageSize]="followLimit" [(page)]="followPage"
-                                                (pageChange)="onFollowPageChange(followPage)">
-                                            </ngb-pagination>
-                                        </div>
-                                    </div>
-                                </ng-template>
-                            </ngb-tab> -->
                         </ngb-tabset>
                     </div>
                 </div>

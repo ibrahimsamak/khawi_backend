@@ -129,8 +129,8 @@ export class DefaultComponent implements OnInit {
     this.getCounterOrdersWithStatus();
     this.getCounterUsers();
     this.UsersproviderPerYear();
-    this.getTopProductsCategory();
-    this.getTopProductsPlace();
+    // this.getTopProductsCategory();
+    // this.getTopProductsPlace();
     // this.getOrdersOfProviders();
   }
 

@@ -40,10 +40,10 @@
 
                                             <td>
                                                 <button placement="top" ngbTooltip="تعديل" title="تعديل"
-                                                    class="btn btn-info-gradien" (click)="openWelcomes(content,item)">
+                                                    class="btn-sm btn-info-gradien" (click)="openWelcomes(content,item)">
                                                     <i class="fa fa-pencil"></i>
                                                 </button>&nbsp;
-                                                <button placement="top" ngbTooltip="حذف" class="btn btn-danger-gradien"
+                                                <button placement="top" ngbTooltip="حذف" class="btn-sm btn-danger-gradien"
                                                     (click)="deleteReason(item._id)">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
@@ -78,13 +78,13 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="arTitle">الاسم العربي</label>
-                        <div class="input-group">
+                        <!-- <div class="input-group">
                             <div class="checkbox checkbox-dark col-md-12">
                                 <input id="isDriver" name="isDriver" type="checkbox" #isDriver="ngModel"
                                     [(ngModel)]="welcomeObject.isDriver">
                                 <label for="isDriver">واجهة ترحيبية في تطبيق السائق؟</label>
                             </div>
-                        </div>
+                        </div> -->
 
                     </div>
                 </div>

@@ -6,29 +6,16 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="country_id">رقم الطلب</label>
                                         <div class="input-group">
-                                            <input name="Order_no" id="Order_no" #Order_no="ngModel"
-                                                [(ngModel)]="searchObject.Order_no" class="form-control" />
+                                            <input name="order_no" id="order_no" #order_no="ngModel"
+                                                [(ngModel)]="searchObject.order_no" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="country_id"> مزود الخدمة </label>
-                                        <div class="input-group">
-                                            <select name="country_id1" id="provider_id" #provider_id="ngModel"
-                                                [(ngModel)]="searchObject.provider_id" class="form-control">
-                                                <option value=""> اختر المزود</option>
-                                                <option *ngFor="let item of stores" value="{{item._id}}">
-                                                    {{item.name}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="custom-datepicker custom-datepicker-dropdown">
                                         <div class="form-group mb-0">
                                             <label for="country_id">من تاريخ</label>
@@ -44,7 +31,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="custom-datepicker custom-datepicker-dropdown">
                                         <div class="form-group mb-0">
                                             <label for="country_id">الى تاريخ</label>
@@ -89,23 +76,19 @@
 
                             <div class="btn-group btn-group-toggle mt-0 mb-0 tabset-group-btn-xs" ngbRadioGroup>
                                 <label ngbButtonLabel class="btn-outline-primary btn-sm btn-position"
-                                    (click)="changeStatus(1)">
+                                    (click)="changeStatus('new')">
                                     <input ngbButton type="radio" value="start">طلب جديد
                                 </label>
                                 <label ngbButtonLabel class="btn-outline-primary btn-sm btn-position"
-                                    (click)="changeStatus(2)">
-                                    <input ngbButton type="radio" value="center">موافق عليه
-                                </label>
-                                <label ngbButtonLabel class="btn-outline-primary btn-sm btn-position"
-                                    (click)="changeStatus(3)">
+                                    (click)="changeStatus('started')">
                                     <input ngbButton type="radio" value="end">قيد التنفيذ
                                 </label>
                                 <label ngbButtonLabel class="btn-outline-primary btn-sm btn-position"
-                                    (click)="changeStatus(4)">
+                                    (click)="changeStatus('finished')">
                                     <input ngbButton type="radio" value="fill">مكتمل
                                 </label>
                                 <label ngbButtonLabel class="btn-outline-primary btn-sm btn-position"
-                                    (click)="changeStatus(5)">
+                                    (click)="changeStatus('canceled')">
                                     <input ngbButton type="radio" value="justified">ملغي
                                 </label>
                             </div>
@@ -115,66 +98,49 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">المشتري</th>
-                                            <th scope="col">مزود الخدمة</th>
+                                            <th scope="col">العنوان</th>
+                                            <th scope="col">صاحب الطلب</th>
                                             <th scope="col">التاريخ</th>
                                             <th scope="col">النوع</th>
-                                            <th scope="col">التوصيل</th>
-                                            <th scope="col">المجموع</th>
+                                            <th scope="col">السعر</th>
                                             <th scope="col">الحالة</th>
                                             <th scope="col"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let item of orders;let i = index">
-                                            <td>{{item?.Order_no}}</td>
-                                            <td>{{item?.user_id?.full_name}}<br>{{item?.user_id?.phone_number}}</td>
-                                            <td>{{item?.supplier_id?.name}}</td>
+                                            <td>{{item?.order_no}}</td>
+                                            <td>{{item?.title}}</td>
+                                            <td>
+                                                <span *ngIf="item.orderType == 1">
+                                                    {{item?.user?.full_name}}<br>{{item?.user?.phone_number}}
+                                                </span>
+                                                <span *ngIf="item.orderType == 2">
+                                                    {{getOfferUser(item)}}
+                                                </span>
+                                            </td>
                                             <td>{{item?.dt_date | date:'dd/MM/yyyy'}}
                                                 <br>
                                                 {{item?.dt_time}}
                                             </td>
-                                            <td>{{item?.OrderType == 1 ? 'شراء' : 'تبديل'}}</td>
+                                            <td>{{item?.orderType == 1 ? 'طلب رحلة' : 'طلب انشاء رحلة'}}</td>
                                             <td>
-                                                <label *ngIf="item.isExpress">توصيل سريع</label>
-                                                <label *ngIf="!item.isExpress">توصيل عادي</label>
-                                            </td>
-                                            <td>{{item?.Total | number : '1.2-2'}} ر.س</td>
-                                            <td>
-                                                <span *ngIf="item.StatusId == 1" class="status-icon bg-info">طلب
-                                                    جديد</span>
-                                                <span *ngIf="item.StatusId == 2" class="status-icon bg-info">موافق
-                                                    عليه</span>
-                                                <span *ngIf="item.StatusId == 3" class="status-icon bg-info">قيد
-                                                    التنفيذ</span>
-                                                <span *ngIf="item.StatusId == 4"
-                                                    class="status-icon bg-success">مكتمل</span>
-                                                <span *ngIf="item.StatusId == 5"
-                                                    class="status-icon bg-danger">ملغي</span>
+                                                {{item?.price}} ر.س
                                             </td>
                                             <td>
-                                                <button *ngIf="item.StatusId == 1 || item.StatusId == -1" placement="top"
-                                                    ngbTooltip="الموافقة على الطلب" class="btn-success-gradien btn-sm"
-                                                    (click)="openOrderDriver(employee,item)">
-                                                    <i class="fa fa-pencil"></i>
-                                                </button>&nbsp;
-                                                <button *ngIf="item.StatusId == 1 || item.StatusId == -1" placement="top" 
-                                                    ngbTooltip="الغاء الطلب" class="btn-primary-gradien btn-sm"
-                                                    (click)="openOrder(cancel,item)">
+                                                <span *ngIf="item.status == 'new' " class="status-icon bg-info">طلب جديد</span>
+                                                <span *ngIf="item.status == 'started' " class="status-icon bg-warning">قيد التنفيذ</span>
+                                                <span *ngIf="item.status == 'finished' || item.status == 'rated'" class="status-icon bg-success">مكتمل</span>
+                                                <span *ngIf="item.status == 'canceled_by_admin'" class="status-icon bg-danger">الغاء من الادارة</span>
+                                                <span *ngIf="item.status == 'canceled_by_driver'" class="status-icon bg-danger">الغاء من السائق</span>
+                                                <span *ngIf="item.status == 'canceled_by_user'" class="status-icon bg-danger">الغاء من العميل</span>
+                                            </td>
+                                            <td>
+                                                <button *ngIf="item.StatusId == 'new'" placement="top"  ngbTooltip="الغاء الطلب" class="btn-primary-gradien btn-sm" (click)="openOrder(cancel,item)">
                                                     <i class="fa fa-trash"></i>
                                                 </button>&nbsp;
-                                                <!-- <button *ngIf="item.StatusId == 2" placement="top"
-                                                    ngbTooltip="تحويل الطلب الي قيد التنفيذ"
-                                                    class="btn btn-success-gradien" (click)="updateOrder(item._id,3)">
-                                                    <i class="fa fa-pencil"></i>
-                                                </button>&nbsp; -->
-                                                <!-- <button *ngIf="item.StatusId == 3" placement="top"
-                                                    ngbTooltip="تحويل الطلب الى مكتمل" class="btn btn-success-gradien"
-                                                    (click)="updateOrder(item._id,4)">
-                                                    <i class="fa fa-pencil"></i>
-                                                </button>&nbsp; -->
                                                 <button placement="top" ngbTooltip="عرض تفاصيل الطلب"
-                                                    class="btn-warning-gradien btn-sm" (click)="openOrder(content,item)">
+                                                    class="btn-warning-gradien btn-sm" (click)="openOrder(content, item)">
                                                     <i class="fa fa-list"></i>
                                                 </button>
                                             </td>
@@ -182,7 +148,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <ngb-pagination *ngIf="orders.length > 0" [collectionSize]="collectionCount" #numPages
+                            <ngb-pagination *ngIf="orders.length > 0" [collectionSize]="collectionCount" #numPages  [maxSize]="10"
                                 [pageSize]="limit" [(page)]="page" (pageChange)="onPageChange(page)">
                             </ngb-pagination>
                         </div>

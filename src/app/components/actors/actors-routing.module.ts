@@ -38,68 +38,6 @@ const routes: Routes = [
         },
       },
       {
-        path: "designers",
-        component: ProvidersComponent,
-        canActivate: [AdminGuard],
-        data: {
-          title: "مزودين الخدمات",
-          breadcrumb: "مزودين الخدمات",
-          roles: [appConstant.ADMIN_URL_ID.STORES],
-        },
-      },
-      {
-        path: "designers/details/:id",
-        component: ProvidersDetailsComponent,
-        canActivate: [AdminGuard],
-        data: {
-          title: "تفاصيل المستخدم",
-          breadcrumb: "التفاصيل",
-          roles: [appConstant.ADMIN_URL_ID.STORES],
-        },
-      },
-      {
-        path: "designers/details",
-        component: ProvidersDetailsComponent,
-        canActivate: [AdminGuard],
-        data: {
-          title: "تفاصيل المستخدم",
-          breadcrumb: "التفاصيل",
-          roles: [appConstant.ADMIN_URL_ID.STORES],
-        },
-      },
-
-      {
-        path: "employee",
-        component: EmployeesComponent,
-        canActivate: [AdminGuard],
-        data: {
-          title: "السائقين",
-          breadcrumb: "السائقين ",
-          roles: [appConstant.ADMIN_URL_ID.EMPLOYEE],
-        },
-      },
-      {
-        path: "employee/details/:id",
-        component: EmployeesDetailsComponent,
-        canActivate: [AdminGuard],
-        data: {
-          title: "تفاصيل السائق",
-          breadcrumb: "التفاصيل",
-          roles: [appConstant.ADMIN_URL_ID.EMPLOYEE],
-        },
-      },
-      {
-        path: "employee/details",
-        component: EmployeesDetailsComponent,
-        canActivate: [AdminGuard],
-        data: {
-          title: "تفاصيل السائق",
-          breadcrumb: "التفاصيل",
-          roles: [appConstant.ADMIN_URL_ID.EMPLOYEE],
-        },
-      },
-
-      {
         path: "admins",
         component: AdminsComponent,
         canActivate: [AdminGuard],

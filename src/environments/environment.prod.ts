@@ -9,7 +9,7 @@ export const environment = {
     messagingSenderId: "245312403399",
     appId: "1:245312403399:web:c8ad4176085f3b23860be2",
   },
-  base_url:"https://shoala.herokuapp.com/api",
+  base_url:"https://khawii-598d2a7a9203.herokuapp.com/api",
 
 };
 

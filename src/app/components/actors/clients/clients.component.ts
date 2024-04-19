@@ -21,6 +21,8 @@ export class ClientsComponent implements OnInit {
   showLoader = false;
   search_field = "full_name";
   search_value = "";
+  has_car = ""
+  isApprove = ""
   users = [];
   totalElements = 0;
   page = 0;
@@ -69,6 +71,8 @@ export class ClientsComponent implements OnInit {
       .getUsers(this.page, this.limit, {
         search_field: this.search_field,
         search_value: this.search_value,
+        has_car: this.has_car,
+        isApprove: this.isApprove
       })
       .subscribe((x) => {
         if (x[appConstant.STATUS]) {
@@ -88,6 +92,8 @@ export class ClientsComponent implements OnInit {
       .getUsersExcel({
         search_field: this.search_field,
         search_value: this.search_value,
+        has_car: this.has_car,
+        isApprove: this.isApprove
       })
       .subscribe((res_data) => {
         let data = res_data["items"] as any[];
@@ -97,6 +103,19 @@ export class ClientsComponent implements OnInit {
             Phone: user["phone_number"],
             Email: user["email"],
             Address: "\ufeff" + user["address"],
+            Wallet: "\ufeff" + user["wallet"],
+            "has car": "\ufeff" + user["hasCar"],
+            "Car type": "\ufeff" + user["carType"],
+            "Car model": "\ufeff" + user["carModel"],
+            "Car color": "\ufeff" + user["carColor"],
+            "Car Number": "\ufeff" + user["carNumber"],
+            "Front Image": "\ufeff" + user["carFrontImage"],
+            "Back Image": "\ufeff" + user["carBackImage"],
+            "Right Image": "\ufeff" + user["carRightImage"],
+            "Left Image": "\ufeff" + user["carLeftImage"],
+            "License": "\ufeff" + user["licenseImage"],
+            "Identity": "\ufeff" + user["identityImage"],
+            "Create At": "\ufeff" + user["createAt"]
           });
         });
 

@@ -21,26 +21,24 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">الكوبون</th>
-                                            <th scope="col">مزود الخدمة</th>
                                             <th scope="col">من تاريخ</th>
                                             <th scope="col">الى تاريخ</th>
-                                            <th scope="col">قيمة الخصم</th>
+                                            <th scope="col">نسبة الخصم</th>
                                             <th scope="col"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let item of coupons;let i = index">
                                             <td>{{item.coupon}}</td>
-                                            <td>{{item?.supplier_id?.name}}</td>
                                             <td>{{item.dt_from | date:"dd/MM/yyyy"}}</td>
                                             <td>{{item.dt_to | date:"dd/MM/yyyy"}}</td>
                                             <td>{{item.discount_rate * 100}}%</td>
                                             <td>
-                                                <button placement="top" ngbTooltip="تعديل" class="btn btn-info-gradien"
+                                                <button placement="top" ngbTooltip="تعديل" class="btn-sm btn-info-gradien"
                                                     (click)="openCoupon(content,item)">
                                                     <i class="fa fa-pencil"></i>
                                                 </button>&nbsp;
-                                                <button placement="top" ngbTooltip="حذف" class="btn btn-danger-gradien"
+                                                <button placement="top" ngbTooltip="حذف" class="btn-sm btn-danger-gradien"
                                                     (click)="deleteCoupon(item._id)">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
@@ -49,7 +47,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <ngb-pagination *ngIf="coupons.length > 0" [collectionSize]="collectionCount" #numPages
+                            <ngb-pagination *ngIf="coupons.length > 0" [collectionSize]="collectionCount" #numPages  [maxSize]="10"
                                 [pageSize]="limit" [(page)]="page" (pageChange)="onPageChange(page)"></ngb-pagination>
                         </div>
                     </div>
@@ -87,62 +85,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="coupon">مزود الخدمة</label>
-                        <div class="input-group">
-                            <select required name="supplier_id" id="supplier_id" #supplier_id="ngModel"
-                                [(ngModel)]="couponObject.supplier_id" class="form-control"
-                                (change)="changeSupplier($event.target.value)">
-                                <option value="">اختر مزود الخدمة</option>
-                                <option *ngFor="let item of providers" value="{{item._id}}">{{item.name}}
-                                </option>
-                            </select>
-                        </div>
-                        <div *ngIf="(supplier_id.errors && supplier_id.invalid && (supplier_id.dirty || supplier_id.touched))"
-                            class="text text-danger">
-                            الحقل مطلوب
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="coupon">المدينة</label>
-                        <div class="input-group">
-                            <select required name="city_id" id="city_id" #city_id="ngModel"
-                                [(ngModel)]="couponObject.city_id" class="form-control"
-                                (change)="changeCity($event.target.value)">
-                                <option value="">اختر المدينة </option>
-                                <option *ngFor="let item of cities" value="{{item._id}}">{{item.arName}}
-                                </option>
-                            </select>
-                        </div>
-                        <div *ngIf="(city_id.errors && city_id.invalid && (city_id.dirty || city_id.touched))"
-                            class="text text-danger">
-                            الحقل مطلوب
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="coupon">منطقة التوزيع</label>
-                        <div class="input-group">
-                            <select required name="place_id" id="place_id" #place_id="ngModel"
-                                [(ngModel)]="couponObject.place_id" class="form-control">
-                                <option value="">اختر منطقة التوزيع الجغرافي </option>
-                                <option *ngFor="let item of places" value="{{item._id}}">{{item.arName}}
-                                </option>
-                            </select>
-                        </div>
-                        <div *ngIf="(place_id.errors && place_id.invalid && (place_id.dirty || place_id.touched))"
-                            class="text text-danger">
-                            الحقل مطلوب
-                        </div>
-                    </div>
-                </div>
                 <div class="col-md-6 ">
                     <div class="form-group">
-                        <label for="discount_rate">قيمة الخصم</label>
+                        <label for="discount_rate">نسبة الخصم</label>
                         <div class="input-group">
                             <input required type="number" min="0" max="1" step="0.1" #enName="ngModel"
                                 class="form-control" id="discount_rate" name="discount_rate" #discount_rate="ngModel"

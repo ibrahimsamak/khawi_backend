@@ -34,6 +34,21 @@ export class ClientDetailsComponent implements OnInit {
     os: "",
     city_id: "",
     country_id: "",
+    hasCar:true,
+    carType:"",
+    carNumber:"",
+    carModel:"",
+    carColor:"",
+   
+    isApprove: "",
+   
+    identityImage:"",
+    licenseImage:"",
+    carFrontImage:"",
+    carBackImage:"",
+    carRightImage:"",
+    carLeftImage:"",
+
   };
   countries = [];
   cities = [];
@@ -124,8 +139,35 @@ export class ClientDetailsComponent implements OnInit {
     let counrty_id = val.target.value;
     this.getCityByCountryId(counrty_id);
   }
+  
+  approveUser(){
+    this.showLoader = true;
+    this.helper.approveUser(this.userDetails._id, {isApprove:true}).subscribe(
+      (x) => {
+        this.showLoader = false;
+        if (x[appConstant.STATUS]) {
+          this.toastr.success(x[appConstant.MESSAGE]);
+          this.formData = new FormData();
+        } else {
+          this.toastr.error(x[appConstant.MESSAGE]);
+          this.formData = new FormData();
+        }
+      },
+      (error) => {
+        this.showLoader = false;
+        this.helper.serverSideErrorHandler(error);
+      }
+    );
+  }
 
   saveUser() {
+    if(!this.userDetails.hasCar){
+      this.userDetails.carNumber = "" 
+      this.userDetails.carColor = "" 
+      this.userDetails.carType = "" 
+      this.userDetails.carModel = "" 
+    }
+    
     this.formData.append("_id", this.userDetails._id);
     this.formData.append("full_name", this.userDetails.full_name);
     this.formData.append("country_id", this.userDetails.country_id);
@@ -134,6 +176,12 @@ export class ClientDetailsComponent implements OnInit {
     this.formData.append("phone_number", this.userDetails.phone_number);
     this.formData.append("address", this.userDetails.address);
     this.formData.append("email", this.userDetails.email);
+   
+    this.formData.append("hasCar", String(this.userDetails.hasCar));
+    this.formData.append("carNumber", this.userDetails.carNumber);
+    this.formData.append("carColor", this.userDetails.carColor);
+    this.formData.append("carType", this.userDetails.carType);
+    this.formData.append("carModel", this.userDetails.carModel);
 
     this.showLoader = true;
     this.helper.updateUser(this.formData).subscribe(
@@ -175,14 +223,14 @@ export class ClientDetailsComponent implements OnInit {
       this.orderCollectionCount = 0;
       this.getOrders(this.user_id, this.orderPage, this.orderLimit);
     }
-    if ($event.nextId === "tab-addresses") {
-      // $event.preventDefault();
-      this.ratePage = 0;
-      this.rateLimit = 10;
-      this.rateCollectionCount = 0;
-      this.rateSize = 0;
-      this.getUserAddress(this.user_id, this.ratePage, this.rateLimit);
-    }
+    // if ($event.nextId === "tab-addresses") {
+    //   // $event.preventDefault();
+    //   this.ratePage = 0;
+    //   this.rateLimit = 10;
+    //   this.rateCollectionCount = 0;
+    //   this.rateSize = 0;
+    //   this.getUserAddress(this.user_id, this.ratePage, this.rateLimit);
+    // }
   }
 
   public onOrderPageChange(pageNum: number): void {
@@ -197,17 +245,17 @@ export class ClientDetailsComponent implements OnInit {
       });
   }
 
-  public onRatePageChange(pageNum: number): void {
-    this.ratePage = pageNum - 1;
-    this.helper
-      .getUserAddress(this.user_id, this.ratePage, this.rateLimit)
-      .subscribe((x) => {
-        let arr = x[appConstant.ITEMS] as any[];
-        this.rateCollectionCount = x["pagenation"]["totalElements"];
-        this.addresses = arr;
-        this.ratePage = pageNum;
-      });
-  }
+  // public onRatePageChange(pageNum: number): void {
+  //   this.ratePage = pageNum - 1;
+  //   this.helper
+  //     .getUserAddress(this.user_id, this.ratePage, this.rateLimit)
+  //     .subscribe((x) => {
+  //       let arr = x[appConstant.ITEMS] as any[];
+  //       this.rateCollectionCount = x["pagenation"]["totalElements"];
+  //       this.addresses = arr;
+  //       this.ratePage = pageNum;
+  //     });
+  // }
 
   openDetails(content, obj) {
     this.user_address = obj;
@@ -219,21 +267,21 @@ export class ClientDetailsComponent implements OnInit {
     this.modalService.open(content, { size: "lg" });
   }
 
-  saveDiscount() {
-    this.helper
-      .addAddressDiscount(this.user_address["_id"], {
-        discount: this.user_address["discount"],
-      })
-      .subscribe((x) => {
-        if (x[appConstant.STATUS] != true) {
-          this.toastr.error(x[appConstant.MESSAGE]);
-        } else {
-          this.toastr.success(x[appConstant.MESSAGE]);
-        }
-        if (this.rateSize == 1 && this.ratePage != 1)
-          this.ratePage = this.ratePage - 2;
-        else this.ratePage = this.ratePage - 1;
-        this.getUserAddress(this.user_id, this.ratePage, this.rateLimit);
-      });
-  }
+  // saveDiscount() {
+  //   this.helper
+  //     .addAddressDiscount(this.user_address["_id"], {
+  //       discount: this.user_address["discount"],
+  //     })
+  //     .subscribe((x) => {
+  //       if (x[appConstant.STATUS] != true) {
+  //         this.toastr.error(x[appConstant.MESSAGE]);
+  //       } else {
+  //         this.toastr.success(x[appConstant.MESSAGE]);
+  //       }
+  //       if (this.rateSize == 1 && this.ratePage != 1)
+  //         this.ratePage = this.ratePage - 2;
+  //       else this.ratePage = this.ratePage - 1;
+  //       this.getUserAddress(this.user_id, this.ratePage, this.rateLimit);
+  //     });
+  // }
 }

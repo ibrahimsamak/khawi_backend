@@ -24,8 +24,7 @@ export class EarningComponent implements OnInit {
   searchObject = {
     dt_from: "",
     dt_to: "",
-    provider_id: "",
-    statusId: 4,
+    status: 'finished',
   };
   orders = [];
   stores = [];
@@ -50,20 +49,11 @@ export class EarningComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.userType = localStorage.getItem("type");
-    if (this.userType != UserType.ADMIN) {
-      this.searchObject.provider_id = localStorage.getItem("admin_id");
-    }
+   
   }
 
   ngOnInit(): void {
-    this.getAllProviders();
     this.getOrder(this.page, this.limit, this.searchObject);
-  }
-
-  getAllProviders() {
-    this.helper.getAllProviders().subscribe((x) => {
-      this.stores = x[appConstant.ITEMS] as any[];
-    });
   }
 
   getOrder(page, limit, filter) {
@@ -79,6 +69,7 @@ export class EarningComponent implements OnInit {
       } else this.toastr.error(x[appConstant.MESSAGE]);
     });
   }
+
   updateOrder(id, status) {
     this.helper
       .updateOrderStatus(id, { statusId: status, notes: this.reaseon })
@@ -91,30 +82,6 @@ export class EarningComponent implements OnInit {
         this.modalService.dismissAll();
         this.getOrder(0, this.limit, this.searchObject);
       });
-  }
-
-  deleteCity(id) {
-    Swal.fire({
-      title: "تحذير",
-      text: "هل انت متأكد من حذف العنصر؟",
-      type: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "نعم",
-      cancelButtonText: "الغاء",
-    }).then((result) => {
-      if (result.value) {
-        this.helper.deleteCity(id).subscribe((x) => {
-          if (x[appConstant.STATUS] != true) {
-            this.toastr.error(x[appConstant.MESSAGE]);
-          } else {
-            this.toastr.success(x[appConstant.MESSAGE]);
-          }
-          this.getOrder(this.page - 1, this.limit, this.searchObject);
-        });
-      }
-    });
   }
 
   public onPageChange(pageNum: number): void {
@@ -151,7 +118,7 @@ export class EarningComponent implements OnInit {
   }
 
   changeStatus(statusId) {
-    this.searchObject.statusId = statusId;
+    this.searchObject.status = statusId;
     this.page = 0;
     this.getOrder(this.page, this.limit, this.searchObject);
   }
@@ -161,10 +128,15 @@ export class EarningComponent implements OnInit {
     this.searchObject = {
       dt_from: "",
       dt_to: "",
-      provider_id: "",
-      statusId: 1,
+      status: "finished",
     };
     this.page = 0;
     this.getOrder(this.page, this.limit, this.searchObject);
+  }
+
+  getOfferUser(item:any){
+    let offers = item.offers.find(x=>String(x.status) == "accept_offer")
+    console.log(offers)
+    return offers && offers.user ? offers.user.full_name : ""
   }
 }

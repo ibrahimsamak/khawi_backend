@@ -48,7 +48,7 @@ export class CouponsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getAllProviders();
+    // this.getAllProviders();
 
     this.getCoupons(this.page, this.limit);
   }

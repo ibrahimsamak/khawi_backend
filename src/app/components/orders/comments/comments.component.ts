@@ -25,7 +25,6 @@ export class CommentsComponent implements OnInit {
   searchObject = {
     dt_from: "",
     dt_to: "",
-    provider_id: "",
   };
   dt_from: "";
   dt_to: "";
@@ -44,20 +43,11 @@ export class CommentsComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.userType = localStorage.getItem("type");
-    if (this.userType != UserType.ADMIN) {
-      this.searchObject.provider_id = localStorage.getItem("admin_id");
-    }
+   
   }
 
   ngOnInit(): void {
-    this.getAllStores();
     this.getOrder(this.page, this.limit, this.searchObject);
-  }
-
-  getAllStores() {
-    this.helper.getAllStores(0).subscribe((x) => {
-      this.stores = x[appConstant.ITEMS] as any[];
-    });
   }
 
   getOrder(page, limit, filter) {
@@ -134,9 +124,14 @@ export class CommentsComponent implements OnInit {
     this.searchObject = {
       dt_from: "",
       dt_to: "",
-      provider_id: "",
     };
     this.page = 0;
     this.getOrder(this.page, this.limit, this.searchObject);
+  }
+
+  getOfferUser(item:any){
+    let offers = item.order_id.offers.find(x=>String(x.status) == "accept_offer")
+    console.log(offers)
+    return offers && offers.user ? offers.user.full_name : ""
   }
 }

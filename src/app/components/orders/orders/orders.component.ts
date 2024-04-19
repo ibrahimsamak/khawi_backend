@@ -25,9 +25,8 @@ export class OrdersComponent implements OnInit {
   searchObject = {
     dt_from: "",
     dt_to: "",
-    provider_id: "",
-    statusId: 1,
-    Order_no: "",
+    status: 1,
+    order_no: "",
   };
   dt_from: "";
   dt_to: "";
@@ -51,20 +50,10 @@ export class OrdersComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.userType = localStorage.getItem("type");
-    if (this.userType != UserType.ADMIN) {
-      this.searchObject.provider_id = localStorage.getItem("admin_id");
-    }
   }
 
   ngOnInit(): void {
-    this.getAllProviders();
     this.getOrder(this.page, this.limit, this.searchObject);
-  }
-
-  getAllProviders() {
-    this.helper.getAllProviders().subscribe((x) => {
-      this.stores = x[appConstant.ITEMS] as any[];
-    });
   }
 
   getOrder(page, limit, filter) {
@@ -81,7 +70,7 @@ export class OrdersComponent implements OnInit {
 
   updateOrder(id, status) {
     var data = {};
-    if (status == 2) data = { employee_id: this.employee_id, statusId: status };
+    if (status == 2) data = { employee_id: this.employee_id, status: status };
     else data = { statusId: status, notes: this.reaseon };
     this.helper.updateOrderStatus(id, data).subscribe(
       (x) => {
@@ -140,7 +129,7 @@ export class OrdersComponent implements OnInit {
   }
 
   changeStatus(statusId) {
-    this.searchObject.statusId = statusId;
+    this.searchObject.status = statusId;
     this.page = 0;
     this.getOrder(this.page, this.limit, this.searchObject);
   }
@@ -151,11 +140,16 @@ export class OrdersComponent implements OnInit {
     this.searchObject = {
       dt_from: "",
       dt_to: "",
-      provider_id: "",
-      statusId: 1,
-      Order_no: "",
+      status: 1,
+      order_no: "",
     };
     this.page = 0;
     this.getOrder(this.page, this.limit, this.searchObject);
+  }
+
+  getOfferUser(item:any){
+    let offers = item.offers.find(x=>String(x.status) == "accept_offer")
+    console.log(offers)
+    return offers && offers.user ? offers.user.full_name : ""
   }
 }

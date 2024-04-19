@@ -19,7 +19,7 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-6 col-xl-3 col-lg-6 col-md-3">
+    <div class="col-sm-6 col-xl-4 col-lg-6 col-md-4">
       <div class="card o-hidden">
         <div class="bg-success b-r-4 card-body">
           <div class="media static-top-widget">
@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-6 col-xl-3 col-lg-6 col-md-3">
+    <!-- <div class="col-sm-6 col-xl-3 col-lg-6 col-md-3">
       <div class="card o-hidden">
         <div class="bg-info b-r-4 card-body">
           <div class="media static-top-widget">
@@ -48,8 +48,8 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-sm-6 col-xl-3 col-lg-6 col-md-3">
+    </div> -->
+    <div class="col-sm-6 col-xl-4 col-lg-6 col-md-4">
       <div class="card o-hidden">
         <div class="bg-secondary b-r-4 card-body">
           <div class="media static-top-widget">
@@ -64,7 +64,7 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-6 col-xl-3 col-lg-6 col-md-3">
+    <div class="col-sm-6 col-xl-4 col-lg-6 col-md-4">
       <div class="card o-hidden">
         <div class="bg-primary b-r-4 card-body">
           <div class="media static-top-widget">
@@ -116,18 +116,19 @@
         </div>
         <div class="card-body recent-notification">
           <div class="media" *ngFor="let item of orders">
-            <h6>{{item.createAt | date:'dd/MM/yyyy'}}</h6>
+            <h6>{{item.order_no}}</h6>
             <div class="media-body">
               <span>
-                ({{item.Total}} ر.س) &nbsp; {{item?.provider_id?.full_name}}
+                ({{item.price}} ر.س) &nbsp; {{item?.user?.full_name}}
               </span>
-              <p class="f-12">{{item.Order_no}}</p>
+              <p class="f-12">{{item.title}}</p>
+              <p class="f-12">{{item.dt_date | date:'dd/MM/yyyy'}}</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-sm-12 col-xl-6" *ngIf="userType == UserType.ADMIN || userType == UserType.STORE">
+    <!-- <div class="col-sm-12 col-xl-6" *ngIf="userType == UserType.ADMIN || userType == UserType.STORE">
       <div class="card">
         <div class="card-header">
           <h5>المنتجات حسب التصنيفات</h5>
@@ -151,8 +152,8 @@
           </ngx-charts-pie-chart>
         </div>
       </div>
-    </div>
-    <div class="col-sm-6">
+    </div> -->
+    <!-- <div class="col-sm-6">
       <div class="card">
         <div class="card-body">
           <div class="media chart-university">
@@ -164,9 +165,7 @@
               <p>طلب شراء جديد مكتمل</p>
             </div>
             <div class="small-bar">
-              <!-- <x-chartist class="ct-small-left flot-chart-container" [data]="chart4.data" [type]="chart4.type"
-                [options]="chart4.options" [events]="chart4.events">
-              </x-chartist> -->
+              <x-chartist class="ct-small-left flot-chart-container" [data]="chart4.data" [type]="chart4.type" [options]="chart4.options" [events]="chart4.events"> </x-chartist> 
             </div>
           </div>
         </div>
@@ -184,14 +183,14 @@
               <p>طلب استبدال مكتمل</p>
             </div>
             <div class="small-bar">
-              <!-- <x-chartist class="ct-small-right flot-chart-container" [data]="chart5.data" [type]="chart5.type"
+              <x-chartist class="ct-small-right flot-chart-container" [data]="chart5.data" [type]="chart5.type"
                 [options]="chart5.options" [events]="chart5.events">
-              </x-chartist> -->
+              </x-chartist>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- <div class="col-xl-12 col-md-12">
       <div class="card">
         <div class="card-header">

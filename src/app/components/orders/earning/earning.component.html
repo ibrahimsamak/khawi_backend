@@ -6,20 +6,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-4" *ngIf="userType == UserType.ADMIN">
-                                    <div class="form-group">
-                                        <label for="country_id">مزود الخدمة</label>
-                                        <div class="input-group">
-                                            <select name="country_id1" id="provider_id" #provider_id="ngModel"
-                                                [(ngModel)]="searchObject.provider_id" class="form-control">
-                                                <option value=""> اختر المزود</option>
-                                                <option *ngFor="let item of stores" value="{{item._id}}">
-                                                    {{item.name}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="custom-datepicker custom-datepicker-dropdown">
                                         <div class="form-group mb-0">
                                             <label for="country_id">من تاريخ</label>
@@ -35,7 +22,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="custom-datepicker custom-datepicker-dropdown">
                                         <div class="form-group mb-0">
                                             <label for="country_id">الى تاريخ</label>
@@ -77,37 +64,46 @@
                     <div class="todo-list-wrapper">
                         <div class="todo-list-container">
                             <div class="table-responsive">
-                                <div style="padding-right: 10px;">
-                                    <label>م. شعلة: </label><strong> {{Admin_Total | number : '1.2-2'}}
+                                <!-- <div style="padding-right: 10px;">
+                                    <label>م. خوي: </label><strong> {{Admin_Total | number : '1.2-2'}}
                                         ريال</strong>&nbsp;&nbsp;
                                     <label>م. مزود الخدمة: </label><strong> {{provider_Total | number : '1.2-2'}}
                                         ريال</strong>&nbsp;&nbsp;
                                     <label>المجموع الكلي: </label><strong> {{Total | number : '1.2-2'}}
                                         ريال</strong>&nbsp;&nbsp;
-                                </div>
+                                </div> -->
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">مزود الخدمة</th>
+                                            <th scope="col">الاسم</th>
                                             <th scope="col">التاريخ</th>
                                             <th scope="col">المجموع</th>
-                                            <th scope="col">م.منصة شعلة</th>
-                                            <th scope="col">م.مزود الخدمة</th>
+                                            <!-- <th scope="col">م.منصة خوي</th> -->
+                                            <!-- <th scope="col">م.مزود الخدمة</th> -->
                                             <th scope="col"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let item of orders;let i = index">
-                                            <td>{{item?.Order_no}}</td>
-                                            <td>{{item?.supplier_id?.name}}</td>
+                                            <td>{{item?.order_no}}</td>
+                                            <td>
+                                                <span *ngIf="item.orderType == 1">
+                                                    {{item?.user?.full_name}}<br>{{item?.user?.phone_number}}
+                                                </span>
+                                                <span *ngIf="item.orderType == 2">
+                                                    {{getOfferUser(item)}}
+                                                </span>
+                                            </td>
                                             <td>{{item?.dt_date | date:'dd/MM/yyyy'}}</td>
-                                            <td>{{item?.Total | number : '1.2-2'}} ر.س</td>
-                                            <td>{{item?.Admin_Total | number : '1.2-2'}} ر.س</td>
-                                            <td>{{item?.provider_Total | number : '1.2-2'}} ر.س</td>
+                                            <td>
+                                                {{item?.price}} ر.س
+                                            </td>
+                                            <!-- <td>{{item?.Admin_Total | number : '1.2-2'}} ر.س</td> -->
+                                            <!-- <td>{{item?.provider_Total | number : '1.2-2'}} ر.س</td> -->
                                             <td>
                                                 <button placement="top" ngbTooltip="عرض تفاصيل الطلب"
-                                                    class="btn btn-warning-gradien" (click)="openOrder(content,item)">
+                                                    class="btn-sm btn-warning-gradien" (click)="openOrder(content,item)">
                                                     <i class="fa fa-list"></i>
                                                 </button>
                                             </td>
@@ -115,7 +111,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <ngb-pagination *ngIf="orders.length > 0" [collectionSize]="collectionCount" #numPages
+                            <ngb-pagination *ngIf="orders.length > 0" [collectionSize]="collectionCount" #numPages  [maxSize]="10"
                                 [pageSize]="limit" [(page)]="page" (pageChange)="onPageChange(page)">
                             </ngb-pagination>
                         </div>

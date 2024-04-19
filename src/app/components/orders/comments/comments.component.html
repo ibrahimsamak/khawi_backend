@@ -69,7 +69,6 @@
                                         <tr>
                                             <th>الطلب</th>
                                             <th>المستخدم</th>
-                                            <th>مزود الخدمة</th>
                                             <th>السائق</th>
                                             <th>التاريخ</th>
                                             <th>التقييم</th>
@@ -79,28 +78,30 @@
                                     <tbody>
                                         <tr *ngFor="let item of comments">
                                             <td>
-                                                {{item?.order_id?.Order_no}}
+                                                {{item?.order_id?.order_no}}
                                             </td>
                                             <td>
-                                                {{item?.user_id?.full_name}}
+                                                {{item?.user_id?.full_name}}<br>{{item?.user_id?.phone_number}}
                                             </td>
                                             <td>
-                                                {{item?.supplier_id?.name}}
-                                            </td>
-                                            <td>
-                                                {{item?.employee_id?.full_name}}
+                                                <span *ngIf="item?.order_id?.orderType == 1">
+                                                    {{item?.order_id?.user?.full_name}}<br>{{item?.order_id?.user?.phone_number}}
+                                                </span>
+                                                <span *ngIf="item?.order_id?.orderType == 2">
+                                                    {{getOfferUser(item)}}
+                                                </span>
                                             </td>
                                             <td>
                                                 {{item.createAt | date:'dd-MM-yyyy'}}
                                             </td>
                                             <td>
                                                 <ngb-rating [max]="5" [readonly]="true"
-                                                    [(rate)]="item.rate_from_user_to_provider" class="rating-size">
+                                                    [(rate)]="item.rate_from_user" class="rating-size">
                                                 </ngb-rating>
                                             </td>
                                             <td class="text-right">
                                                 <a class="btn btn-primary btn-sm cursor"
-                                                    (click)="openDetails(rate,item.note_from_user_to_provider)">
+                                                    (click)="openDetails(rate,item.note_from_user)">
                                                     <i class="fa fa-comment"></i> التعليق </a>&nbsp;
                                                 <a class="btn btn-danger btn-sm cursor"
                                                     (click)="deleteComment(item._id)">
@@ -110,7 +111,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <ngb-pagination *ngIf="comments.length > 0" [collectionSize]="collectionCount" #numPages
+                            <ngb-pagination *ngIf="comments.length > 0" [collectionSize]="collectionCount" #numPages  [maxSize]="10"
                                 [pageSize]="limit" [(page)]="page" (pageChange)="onPageChange(page)">
                             </ngb-pagination>
                         </div>

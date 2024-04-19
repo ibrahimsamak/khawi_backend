@@ -993,6 +993,23 @@ export class ConstantServiceWrapper {
     );
   }
 
+  approveUser(id, conent) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Content: "application/json",
+        Accept: "application/json",
+        "Content-Type": "application/json; charset=utf-8",
+        "Access-Control-Allow-Origin": "*",
+        token: this.getMyToken(),
+      }),
+    };
+    return this.http.post(
+      appConstant.BASE_URL + "/users/approve/"+id,
+      JSON.stringify(conent),
+      httpOptions
+    );
+  }
+
   getUserAddress(id, page, limit) {
     const httpOptions = {
       headers: new HttpHeaders({

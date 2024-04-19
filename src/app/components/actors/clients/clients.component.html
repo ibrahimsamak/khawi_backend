@@ -7,7 +7,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="search_field1">بحث بحسب</label>
                                         <div class="input-group">
@@ -20,11 +20,37 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="search_value1">قيمة البحث</label>
                                         <input #search_value1="ngModel" type="text" class="form-control"
                                             id="search_value1" name="search_value1" [(ngModel)]="search_value" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="has_car1">يملك سيارة</label>
+                                        <div class="input-group">
+                                            <select name="has_car1" id="has_car1" #has_car1="ngModel"
+                                                [(ngModel)]="has_car" class="form-control">
+                                                <option value="">الكل</option>
+                                                <option value="true">نعم</option>
+                                                <option value="false">لا</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="isApprove1">حالة التفعيل</label>
+                                        <div class="input-group">
+                                            <select name="isApprove1" id="isApprove1" #isApprove1="ngModel"
+                                                [(ngModel)]="isApprove" class="form-control">
+                                                <option value="">الكل</option>
+                                                <option value="true">مفعل</option>
+                                                <option value="false">غير مفعل</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -66,13 +92,17 @@
                     <h6>{{item.phone_number}}</h6>
                 </div>
                 <div class="card-footer row">
-                    <div class="col-6 col-sm-6">
-                        <h6>المفضلة</h6>
+                    <div class="col-4 col-sm-4">
+                        <h6>المدعوون</h6>
                         <h3 class="counter">{{item.favorites}}</h3>
                     </div>
-                    <div class="col-6 col-sm-6">
+                    <div class="col-4 col-sm-4">
                         <h6>طلبات</h6>
                         <h3 class="counter">{{item.orders}}</h3>
+                    </div>
+                    <div class="col-4 col-sm-4">
+                        <h6>المحفظة</h6>
+                        <h3 class="counter">{{item.wallet}} ر.س</h3>
                     </div>
                 </div>
             </div>

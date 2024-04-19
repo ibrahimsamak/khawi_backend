@@ -6,129 +6,145 @@
         <div class="form-row col-md-12">
             <div class="form-group col-md-3">
                 <label class="txt1" for="inputState">رقم الطلب</label>
-                <label class="txt2" name="ـid" #ـid id="ـid">{{orderDetails?.Order_no}}</label>
+                <label class="txt2" name="ـid" #ـid id="ـid">{{orderDetails?.order_no}}</label>
             </div>
             <div class="form-group col-md-3">
                 <label class="txt1" for="inputState">الكوبون</label>
                 <label class="txt2" name="coupon" id="coupon">{{orderDetails?.couponCode}}</label>
             </div>
             <div class="form-group col-md-3">
-                <label class="txt1" for="inputState">الاسم</label>
-                <label class="txt2" name="full_name" #full_name
-                    id="full_name">{{orderDetails?.user_id?.full_name}}</label>
+                <label class="txt1" for="inputState">صاحب الطلب</label>
+                <label class="txt2" name="full_name" #full_name id="full_name">
+                    <span *ngIf="orderDetails?.orderType == 1">{{orderDetails?.user?.full_name}}</span>
+                    <span *ngIf="orderDetails?.orderType == 2">{{getOfferUser()}}</span>
+                </label>
             </div>
             <div class="form-group col-md-3">
-                <label class="txt1" for="inputState">رقم الجوال</label>
-                <label class="txt2" name="phone_number" #phone_number
-                    id="phone_number">{{orderDetails?.user_id?.phone_number}}</label>
+                <label class="txt1" for="inputState">السعر</label>
+                <label class="txt2" name="price" #price id="price">
+                    {{orderDetails?.price}} ر.س
+                </label>
             </div>
         </div>
     </div>
-    <div class="form-row">
-        <h6 for="inputState">المعلومات المالية: </h6>
+    <div class="form-row mt-3">
+        <h6 for="inputState">المعلومات السيارة: </h6>
         <br>
         <br>
         <div class="form-row col-md-12">
             <div class="form-group col-md-3">
-                <label class="txt1" for="inputState">قيمة التوصيل</label>
-                <label class="txt2" name="deliveryCost" id="deliveryCost">{{orderDetails?.DeliveryCost | number :
-                    '1.2-2'}} ر.س</label>
+                <label class="txt1" for="inputState">نوع السيارة</label>
+                <label class="txt2" name="carType" id="carType">{{orderDetails?.user.carType}}</label>
             </div>
             <div class="form-group col-md-3">
-                <label class="txt1" for="inputState">المجموع</label>
-                <label class="txt2" name="subTotal" id="subTotal">{{orderDetails?.Total | number : '1.2-2'}} ر.س</label>
+                <label class="txt1" for="inputState">موديل السيارة</label>
+                <label class="txt2" name="carModel" id="carModel">{{orderDetails?.user.carModel}}</label>
             </div>
             <div class="form-group col-md-3">
-                <label class="txt1" for="inputState">م. منصة شعلة</label>
-                <label class="txt2" name="Total" id="Total">{{orderDetails?.Admin_Total | number : '1.2-2'}} ر.س</label>
+                <label class="txt1" for="inputState">رقم السيارة</label>
+                <label class="txt2" name="carNumber" id="carNumber">{{orderDetails?.user.carNumber}}</label>
             </div>
             <div class="form-group col-md-3">
-                <label class="txt1" for="inputState">م. الطرف الاخر</label>
-                <label class="txt2" name="Total" id="Total">{{orderDetails?.provider_Total | number : '1.2-2'}}
-                    ر.س</label>
+                <label class="txt1" for="inputState">رقم السيارة</label>
+                <label class="txt2" name="carColor" id="carColor">{{orderDetails?.user.carColor}}</label>
             </div>
         </div>
     </div>
-    <div class="form-row">
+    <div class="form-row mt-3">
         <h6 for="inputState">معلومات الطلب: </h6>
         <br>
         <br>
         <div class="form-row col-md-12">
             <div class="form-group col-md-3">
                 <label class="txt1" for="inputState">الحالة</label>
-                <strong *ngIf="orderDetails.StatusId == 4">تم
-                    التنفيذ</strong>
-                <strong *ngIf="orderDetails.StatusId < 4">قيد التنفيذ
-                    التنفيذ</strong>
-                <strong *ngIf="orderDetails.StatusId > 4">ملغي</strong>
+                <strong *ngIf="orderDetails.status == 'new' " class="status-icon bg-info">طلب جديد</strong>
+                <strong *ngIf="orderDetails.status == 'started' " class="status-icon bg-warning">قيد التنفيذ</strong>
+                <strong *ngIf="orderDetails.status == 'finished' || orderDetails.status == 'rated'" class="status-icon bg-success">مكتمل</strong>
+                <strong *ngIf="orderDetails.status == 'canceled_by_admin'" class="status-icon bg-danger">الغاء من الادارة</strong>
+                <strong *ngIf="orderDetails.status == 'canceled_by_driver'" class="status-icon bg-danger">الغاء من السائق</strong>
+                <strong *ngIf="orderDetails.status == 'canceled_by_user'" class="status-icon bg-danger">الغاء من العميل</strong>
             </div>
             <div class="form-group col-md-3">
                 <label class="txt1" for="inputState">وسيلة الدفع</label>
-                <strong *ngIf="orderDetails?.PaymentType == 1">كاش</strong>
-                <strong *ngIf="orderDetails?.PaymentType == 2">دفع الكتروني</strong>
-                <strong *ngIf="orderDetails?.PaymentType == 3">نقاط</strong>
+                <strong>محفظة</strong>
+                <!-- <strong *ngIf="orderDetails?.PaymentType == 2">دفع الكتروني</strong> -->
+                <!-- <strong *ngIf="orderDetails?.PaymentType == 3">نقاط</strong> -->
             </div>
             <div class="form-group col-md-3">
                 <label class="txt1" for="inputState">التاريخ</label>
-                <label class="txt2" name="subTotal" id="subTotal">{{orderDetails?.dt_date | date:'dd/MM/yyyy'}}</label>
+                <label class="txt2" name="subTotal" id="subTotal">{{orderDetails?.createAt | date:'dd/MM/yyyy'}}</label>
             </div>
-            <div class="form-group col-md-3">
+            <!-- <div class="form-group col-md-3">
                 <label class="txt1" for="inputState">الوقت</label>
                 <label class="txt2" name="Total" id="Total">{{orderDetails?.dt_time}} </label>
-            </div>
+            </div> -->
             <div class="form-group col-md-3">
                 <label class="txt1" for="inputState">نوع الطلب</label>
-                <span *ngIf="orderDetails?.OrderType == 1">شراء جديد</span>
-                <span *ngIf="orderDetails?.OrderType == 2">اعادة تعبئئة</span>
+                <span *ngIf="orderDetails?.orderType == 1">طلب انشاء رحلة</span>
+                <span *ngIf="orderDetails?.orderType == 2">طلب رحلة</span>
             </div>
             <div class="form-group col-md-3">
-                <label class="txt1" for="inputState">مزود الخدمة</label>
-                <label class="txt2" name="Total" id="Total">{{orderDetails?.supplier_id?.name}} </label>
+                <label class="txt1" for="inputState">ظلب متكرر</label>
+                <span *ngIf="orderDetails?.is_repeated">{{orderDetails?.days}}</span>
             </div>
             <div class="form-group col-md-3">
-                <label class="txt1" for="inputState">السائق</label>
-                <label class="txt2" name="Total" id="Total">{{orderDetails?.employee_id?.full_name}} </label>
-            </div>
-            <div class="form-group col-md-3">
-                <label class="txt1" for="inputState">المربع او المنطقة</label>
-                <label class="txt2" name="Total" id="Total">{{orderDetails?.place_id?.arName}} </label>
+                <label class="txt1" for="inputState">عدد الركاب</label>
+                <span>{{orderDetails?.max_passenger}}</span>
             </div>
         </div>
     </div>
-    <div class="form-row">
-        <div class="form-group col-md-12">
-            <label class="txt1" for="inputState">العنوان بالتفصيل</label>
-            <label class="txt2" name="Notes" id="Notes">{{orderDetails?.address}}</label>
+    <div class="form-row mt-3">
+        <div class="form-group col-md-6">
+            <label class="txt1" for="inputState">عنوان البداية</label>
+            <label class="txt2" name="Notes" id="Notes">{{orderDetails?.f_address}}</label>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="txt1" for="inputState">عنوان النهاية</label>
+            <label class="txt2" name="Notes" id="Notes">{{orderDetails?.t_address}}</label>
         </div>
     </div>
-    <div class="form-row">
+    <div class="form-row mt-3">
         <div class="form-group col-md-12">
             <label class="txt1" for="inputState">الملاحظات</label>
             <label class="txt2" name="Notes" id="Notes">{{orderDetails?.notes}}</label>
         </div>
+        <div class="form-group col-md-12">
+            <label class="txt1" for="inputState">سبب الرفض</label>
+            <label class="txt2" name="Notes" id="Notes">{{orderDetails?.canceled_note}}</label>
+        </div>
     </div>
-    <div class="form-row">
-        <h6 for="inputState">المنتجات: </h6>
+    <div class="form-row mt-3" *ngIf="orderDetails.offers.length > 0">
+        <h6 for="inputState">العروض: </h6>
         <br>
         <div class="form-row col-md-12">
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">صورة</th>
                             <th scope="col">الاسم</th>
-                            <th scope="col">الكمية</th>
+                            <th scope="col">من</th>
+                            <th scope="col">الى</th>
+                            <th scope="col">التاريخ</th>
+                            <th scope="col">الوقت</th>
                             <th scope="col">السعر</th>
+                            <th scope="col">الحالة</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of orderDetails?.items;let i = index">
+                        <tr *ngFor="let item of orderDetails?.offers;let i = index">
+                            <td>{{item?.user?.full_name}}</td>
+                            <td>{{item?.f_address}}</td>
+                            <td>{{item?.t_address}}</td>
+                            <td>{{item?.dt_date | date:'dd/MM/yyyy'}}</td>
+                            <td>{{item?.dt_time}}</td>
+                            <td>{{item?.price}}</td>
                             <td>
-                                <img class="img-60 rounded-circle" [src]="item?.product_id?.image">
+                                <span *ngIf="item?.status == 'add_offer'">اضاف عرض</span>
+                                <span *ngIf="item?.status == 'accept_offer'">تم القبول</span>
+                                <span *ngIf="item?.status == 'reject_offer'">تم الرفض </span>
+                                <span *ngIf="item?.status == 'attend'">تم الحضور</span>
+                                <span *ngIf="item?.status == 'not_attend'">لم يتم الحضور</span>
                             </td>
-                            <td>{{item?.product_id?.arName}}</td>
-                            <td>{{item?.qty}}</td>
-                            <td>{{item?.Total - item?.TotalDiscount | number : '1.2-2'}} ر.س</td>
                         </tr>
                     </tbody>
                 </table>
@@ -137,16 +153,22 @@
     </div>
 
     <div class="">
-        <agm-map [latitude]="orderDetails?.lat" [longitude]="orderDetails?.lng" [zoom]="zoom_m1" [scrollwheel]="true"
+        <agm-map [latitude]="orderDetails?.f_lat" [longitude]="orderDetails?.f_lng" [zoom]="zoom_m1" [scrollwheel]="true"
             [disableDoubleClickZoom]="false" [mapDraggable]="true" [zoomControl]="true" [mapTypeControl]="true"
             [mapTypeId]="'hybrid'">
-            <agm-direction [origin]="origin" [destination]="destination">
-            </agm-direction>
-            <agm-marker [latitude]="orderDetails?.lat" [longitude]="orderDetails?.lng">
+            <!-- <agm-direction [origin]="origin" [destination]="destination"></agm-direction> -->
+            <agm-marker [latitude]="orderDetails?.f_lat" [longitude]="orderDetails?.f_lng">
                 <agm-info-window>
-                    {{orderDetails.address}}
+                    {{orderDetails.f_address}}
                 </agm-info-window>
             </agm-marker>
+
+            <agm-marker [latitude]="orderDetails?.t_lat" [longitude]="orderDetails?.t_lng">
+                <agm-info-window>
+                    {{orderDetails.t_address}}
+                </agm-info-window>
+            </agm-marker>
+
         </agm-map>
     </div>
 </form>

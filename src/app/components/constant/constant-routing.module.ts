@@ -67,16 +67,16 @@ const routes: Routes = [
           roles: [appConstant.ADMIN_URL_ID.WELCOME],
         },
       },
-      {
-        path: "advs",
-        component: AdvsComponent,
-        canActivate: [AdminGuard],
-        data: {
-          title: "سلايدر الاعلانات",
-          breadcrumb: " سلايدر الاعلانات ",
-          roles: [appConstant.ADMIN_URL_ID.ADVS],
-        },
-      },
+      // {
+      //   path: "advs",
+      //   component: AdvsComponent,
+      //   canActivate: [AdminGuard],
+      //   data: {
+      //     title: "سلايدر الاعلانات",
+      //     breadcrumb: " سلايدر الاعلانات ",
+      //     roles: [appConstant.ADMIN_URL_ID.ADVS],
+      //   },
+      // },
       {
         path: "category",
         component: CategoryComponent,

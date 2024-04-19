@@ -276,32 +276,32 @@ export class NavService {
             constant.children.push(obj);
           }
 
-          if (element.name == appConstant.ADMIN_URL_ID.COUNTRY) {
-            let obj = {
-              path: "/constant/country",
-              title: "قائمة الدول",
-              type: "link",
-            };
-            constant.children.push(obj);
-          }
-          if (element.name == appConstant.ADMIN_URL_ID.CITY) {
-            let obj = {
-              path: "/constant/city",
-              title: "قائمة المدن",
-              type: "link",
-            };
-            constant.children.push(obj);
-          }
+          // if (element.name == appConstant.ADMIN_URL_ID.COUNTRY) {
+          //   let obj = {
+          //     path: "/constant/country",
+          //     title: "قائمة الدول",
+          //     type: "link",
+          //   };
+          //   constant.children.push(obj);
+          // }
+          // if (element.name == appConstant.ADMIN_URL_ID.CITY) {
+          //   let obj = {
+          //     path: "/constant/city",
+          //     title: "قائمة المدن",
+          //     type: "link",
+          //   };
+          //   constant.children.push(obj);
+          // }
 
-          if (element.name == appConstant.ADMIN_URL_ID.CATEGORY) {
-            let obj = {
-              path: "/constant/category",
-              title: "التصنيفات",
-              type: "link",
-            };
+          // if (element.name == appConstant.ADMIN_URL_ID.CATEGORY) {
+          //   let obj = {
+          //     path: "/constant/category",
+          //     title: "التصنيفات",
+          //     type: "link",
+          //   };
 
-            constant.children.push(obj);
-          }
+          //   constant.children.push(obj);
+          // }
         }
 
         if (
@@ -327,66 +327,66 @@ export class NavService {
             };
             users.children.push(obj);
           }
-          if (element.name == appConstant.ADMIN_URL_ID.STORES) {
-            let obj = {
-              path: "/users/designers",
-              title: "مزودين الخدمات",
-              type: "link",
-            };
-            users.children.push(obj);
-          }
+          // if (element.name == appConstant.ADMIN_URL_ID.STORES) {
+          //   let obj = {
+          //     path: "/users/designers",
+          //     title: "مزودين الخدمات",
+          //     type: "link",
+          //   };
+          //   users.children.push(obj);
+          // }
 
-          if (element.name == appConstant.ADMIN_URL_ID.EMPLOYEE) {
-            let obj = {
-              path: "/users/employee",
-              title: "السائقين",
-              type: "link",
-            };
-            users.children.push(obj);
-          }
+          // if (element.name == appConstant.ADMIN_URL_ID.EMPLOYEE) {
+          //   let obj = {
+          //     path: "/users/employee",
+          //     title: "السائقين",
+          //     type: "link",
+          //   };
+          //   users.children.push(obj);
+          // }
         }
 
-        if (
-          element.name == appConstant.ADMIN_URL_ID.PRODUCTS ||
-          element.name == appConstant.ADMIN_URL_ID.PLACES ||
-          element.name == appConstant.ADMIN_URL_ID.PRODUCTS_PLACES ||
-          element.name == appConstant.ADMIN_URL_ID.STORE_PLACES
-        ) {
-          if (element.name == appConstant.ADMIN_URL_ID.PRODUCTS) {
-            let obj = {
-              path: "/items/products",
-              title: "المنتجات",
-              type: "link",
-            };
-            items.children.push(obj);
-          }
-          if (element.name == appConstant.ADMIN_URL_ID.STORE_PLACES) {
-            let obj = {
-              path: "/items/places/store",
-              title: "مزودين المربعات",
-              type: "link",
-            };
-            items.children.push(obj);
-          }
+        // if (
+        //   element.name == appConstant.ADMIN_URL_ID.PRODUCTS ||
+        //   element.name == appConstant.ADMIN_URL_ID.PLACES ||
+        //   element.name == appConstant.ADMIN_URL_ID.PRODUCTS_PLACES ||
+        //   element.name == appConstant.ADMIN_URL_ID.STORE_PLACES
+        // ) {
+        //   if (element.name == appConstant.ADMIN_URL_ID.PRODUCTS) {
+        //     let obj = {
+        //       path: "/items/products",
+        //       title: "المنتجات",
+        //       type: "link",
+        //     };
+        //     items.children.push(obj);
+        //   }
+        //   if (element.name == appConstant.ADMIN_URL_ID.STORE_PLACES) {
+        //     let obj = {
+        //       path: "/items/places/store",
+        //       title: "مزودين المربعات",
+        //       type: "link",
+        //     };
+        //     items.children.push(obj);
+        //   }
 
-          if (element.name == appConstant.ADMIN_URL_ID.PRODUCTS_PLACES) {
-            let obj = {
-              path: "/items/places/product",
-              title: "منتجات المربعات",
-              type: "link",
-            };
-            items.children.push(obj);
-          }
+        //   if (element.name == appConstant.ADMIN_URL_ID.PRODUCTS_PLACES) {
+        //     let obj = {
+        //       path: "/items/places/product",
+        //       title: "منتجات المربعات",
+        //       type: "link",
+        //     };
+        //     items.children.push(obj);
+        //   }
 
-          if (element.name == appConstant.ADMIN_URL_ID.PLACES) {
-            let obj = {
-              path: "/items/places",
-              title: "مناطق ومربعات التوزيع",
-              type: "link",
-            };
-            items.children.push(obj);
-          }
-        }
+        //   if (element.name == appConstant.ADMIN_URL_ID.PLACES) {
+        //     let obj = {
+        //       path: "/items/places",
+        //       title: "مناطق ومربعات التوزيع",
+        //       type: "link",
+        //     };
+        //     items.children.push(obj);
+        //   }
+        // }
 
         if (
           element.name == appConstant.ADMIN_URL_ID.ORDERS ||
@@ -441,23 +441,23 @@ export class NavService {
             };
             maps.children.push(obj);
           }
-          if (element.name == appConstant.ADMIN_URL_ID.EMPLOYEE) {
-            let obj = {
-              path: "/maps/driver_map",
-              title: "التوزيع الجغرافي للسائقين",
-              type: "link",
-            };
-            maps.children.push(obj);
-          }
+          // if (element.name == appConstant.ADMIN_URL_ID.EMPLOYEE) {
+          //   let obj = {
+          //     path: "/maps/driver_map",
+          //     title: "التوزيع الجغرافي للمستخدمين",
+          //     type: "link",
+          //   };
+          //   maps.children.push(obj);
+          // }
     
-          if (element.name == appConstant.ADMIN_URL_ID.UNCOVERAGEMAP) {
-            let obj = {
-              path: "/maps/unconvarage_map",
-              title: "المناطق الغير مغطاة",
-              type: "link",
-            };
-            maps.children.push(obj);
-          }
+          // if (element.name == appConstant.ADMIN_URL_ID.UNCOVERAGEMAP) {
+          //   let obj = {
+          //     path: "/maps/unconvarage_map",
+          //     title: "المناطق الغير مغطاة",
+          //     type: "link",
+          //   };
+          //   maps.children.push(obj);
+          // }
         }
 
         if (
@@ -474,14 +474,14 @@ export class NavService {
             offers.children.push(obj);
           }
 
-          if (element.name == appConstant.ADMIN_URL_ID.ADVS) {
-            let obj2 = {
-              path: "/constant/advs",
-              title: "سلايدر الاعلانات",
-              type: "link",
-            };
-            offers.children.push(obj2);
-          }
+          // if (element.name == appConstant.ADMIN_URL_ID.ADVS) {
+          //   let obj2 = {
+          //     path: "/constant/advs",
+          //     title: "سلايدر الاعلانات",
+          //     type: "link",
+          //   };
+          //   offers.children.push(obj2);
+          // }
         }
 
         if (

@@ -215,7 +215,7 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            <ngb-pagination *ngIf="orders.length > 0"
+                                            <ngb-pagination *ngIf="orders.length > 0"  [maxSize]="10"
                                                 [collectionSize]="orderCollectionCount" #orders [pageSize]="orderLimit"
                                                 [(page)]="orderPage" (pageChange)="onOrderPageChange(orderPage)">
                                             </ngb-pagination>

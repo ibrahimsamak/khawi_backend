@@ -15,12 +15,19 @@ export class OrderDetailsPoPComponent implements OnInit {
 
   ngOnInit(): void {
     this.origin = {
-      lat: this.orderDetails?.employee_id?.lat,
-      lng: this.orderDetails?.employee_id?.lng,
+      f_lat: this.orderDetails?.f_lat,
+      f_lng: this.orderDetails?.f_lng,
     };
     this.destination = {
-      lat: this.orderDetails?.lat,
-      lng: this.orderDetails?.lng,
+      t_lat: this.orderDetails?.t_lat,
+      t_lng: this.orderDetails?.t_lng,
     };
+    this.getOfferUser()
+  }
+
+  getOfferUser(){
+    let offers = this.orderDetails.offers.find(x=>String(x.status) == "accept_offer")
+    console.log(offers)
+    return offers && offers.user ? offers.user.full_name : ""
   }
 }

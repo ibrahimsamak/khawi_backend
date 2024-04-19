@@ -64,14 +64,14 @@
                                             <td>{{item?.city_id?.arName}}</td>
                                             <td>
                                                 <!-- <button placement="top" ngbTooltip="عرض على الخريطة"
-                                                    class="btn btn-info-gradien" (click)="openMap(content,item)">
+                                                    class="btn-sm btn-info-gradien" (click)="openMap(content,item)">
                                                     <i class="fa fa-map"></i>
                                                 </button>&nbsp; -->
                                                 <button placement="top" ngbTooltip="تعديل"
                                                     class="btn btn-primary-gradien" (click)="addEdit(item)">
                                                     <i class="fa fa-pencil"></i>
                                                 </button>&nbsp;
-                                                <button placement="top" ngbTooltip="حذف" class="btn btn-danger-gradien"
+                                                <button placement="top" ngbTooltip="حذف" class="btn-sm btn-danger-gradien"
                                                     (click)="deletePlace(item._id)">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
@@ -80,7 +80,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <ngb-pagination *ngIf="places.length > 0" [collectionSize]="collectionCount" #numPages
+                            <ngb-pagination *ngIf="places.length > 0" [collectionSize]="collectionCount" #numPages  [maxSize]="10"
                                 [pageSize]="limit" [(page)]="page" (pageChange)="onPageChange(page)"></ngb-pagination>
                         </div>
                     </div>

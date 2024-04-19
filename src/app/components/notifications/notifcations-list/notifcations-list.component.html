@@ -83,9 +83,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <ngb-pagination *ngIf="notifications.length > 0" [collectionSize]="collectionCount"
-                                #numPages [pageSize]="limit" [(page)]="page" (pageChange)="onPageChange(page)">
-                            </ngb-pagination>
+                            <ngb-pagination *ngIf="notifications.length > 0"  [maxSize]="10" [collectionSize]="collectionCount" #numPages [pageSize]="limit" [(page)]="page" (pageChange)="onPageChange(page)"></ngb-pagination>
                         </div>
                     </div>
                 </div>

@@ -152,26 +152,26 @@ export class appConstant {
       Name: appConstant.ADMIN_URL_STRINGS.WELCOME,
       Sort: 10,
     },
-    {
-      ID: appConstant.ADMIN_URL_ID.ADVS,
-      Name: appConstant.ADMIN_URL_STRINGS.ADVS,
-      Sort: 11,
-    },
+    // {
+    //   ID: appConstant.ADMIN_URL_ID.ADVS,
+    //   Name: appConstant.ADMIN_URL_STRINGS.ADVS,
+    //   Sort: 11,
+    // },
     {
       ID: appConstant.ADMIN_URL_ID.CATEGORY,
       Name: appConstant.ADMIN_URL_STRINGS.CATEGORY,
       Sort: 12,
     },
-    {
-      ID: appConstant.ADMIN_URL_ID.COUNTRY,
-      Name: appConstant.ADMIN_URL_STRINGS.COUNTRY,
-      Sort: 13,
-    },
-    {
-      ID: appConstant.ADMIN_URL_ID.CITY,
-      Name: appConstant.ADMIN_URL_STRINGS.CITY,
-      Sort: 14,
-    },
+    // {
+    //   ID: appConstant.ADMIN_URL_ID.COUNTRY,
+    //   Name: appConstant.ADMIN_URL_STRINGS.COUNTRY,
+    //   Sort: 13,
+    // },
+    // {
+    //   ID: appConstant.ADMIN_URL_ID.CITY,
+    //   Name: appConstant.ADMIN_URL_STRINGS.CITY,
+    //   Sort: 14,
+    // },
     {
       ID: appConstant.ADMIN_URL_ID.COUPON,
       Name: appConstant.ADMIN_URL_STRINGS.COUPON,
@@ -182,41 +182,41 @@ export class appConstant {
       Name: appConstant.ADMIN_URL_STRINGS.USER,
       Sort: 16,
     },
-    {
-      ID: appConstant.ADMIN_URL_ID.STORES,
-      Name: appConstant.ADMIN_URL_STRINGS.STORES,
-      Sort: 17,
-    },
-    {
-      ID: appConstant.ADMIN_URL_ID.EMPLOYEE,
-      Name: appConstant.ADMIN_URL_STRINGS.EMPLOYEE,
-      Sort: 17,
-    },
+    // {
+    //   ID: appConstant.ADMIN_URL_ID.STORES,
+    //   Name: appConstant.ADMIN_URL_STRINGS.STORES,
+    //   Sort: 17,
+    // },
+    // {
+    //   ID: appConstant.ADMIN_URL_ID.EMPLOYEE,
+    //   Name: appConstant.ADMIN_URL_STRINGS.EMPLOYEE,
+    //   Sort: 17,
+    // },
     {
       ID: appConstant.ADMIN_URL_ID.ADMINS,
       Name: appConstant.ADMIN_URL_STRINGS.ADMINS,
       Sort: 18,
     },
-    {
-      ID: appConstant.ADMIN_URL_ID.PRODUCTS,
-      Name: appConstant.ADMIN_URL_STRINGS.PRODUCTS,
-      Sort: 19,
-    },
-    {
-      ID: appConstant.ADMIN_URL_ID.STORE_PLACES,
-      Name: appConstant.ADMIN_URL_STRINGS.STORE_PLACES,
-      Sort: 19,
-    },
-    {
-      ID: appConstant.ADMIN_URL_ID.PRODUCTS_PLACES,
-      Name: appConstant.ADMIN_URL_STRINGS.PRODUCTS_PLACES,
-      Sort: 19,
-    },
-    {
-      ID: appConstant.ADMIN_URL_ID.PLACES,
-      Name: appConstant.ADMIN_URL_STRINGS.PLACES,
-      Sort: 20,
-    },
+    // {
+    //   ID: appConstant.ADMIN_URL_ID.PRODUCTS,
+    //   Name: appConstant.ADMIN_URL_STRINGS.PRODUCTS,
+    //   Sort: 19,
+    // },
+    // {
+    //   ID: appConstant.ADMIN_URL_ID.STORE_PLACES,
+    //   Name: appConstant.ADMIN_URL_STRINGS.STORE_PLACES,
+    //   Sort: 19,
+    // },
+    // {
+    //   ID: appConstant.ADMIN_URL_ID.PRODUCTS_PLACES,
+    //   Name: appConstant.ADMIN_URL_STRINGS.PRODUCTS_PLACES,
+    //   Sort: 19,
+    // },
+    // {
+    //   ID: appConstant.ADMIN_URL_ID.PLACES,
+    //   Name: appConstant.ADMIN_URL_STRINGS.PLACES,
+    //   Sort: 20,
+    // },
     {
       ID: appConstant.ADMIN_URL_ID.ORDERS,
       Name: appConstant.ADMIN_URL_STRINGS.ORDERS,
@@ -238,11 +238,11 @@ export class appConstant {
       Name: appConstant.ADMIN_URL_STRINGS.ORDERSMAP,
       Sort: 24,
     },
-    {
-      ID: appConstant.ADMIN_URL_ID.UNCOVERAGEMAP,
-      Name: appConstant.ADMIN_URL_STRINGS.UNCOVERAGEMAP,
-      Sort: 25,
-    },
+    // {
+    //   ID: appConstant.ADMIN_URL_ID.UNCOVERAGEMAP,
+    //   Name: appConstant.ADMIN_URL_STRINGS.UNCOVERAGEMAP,
+    //   Sort: 25,
+    // },
 
     //payments
     {

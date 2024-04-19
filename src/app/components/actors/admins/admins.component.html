@@ -32,11 +32,11 @@
                                             <td>{{item.email}}</td>
                                             <td>{{item.phone_number}}</td>
                                             <td>
-                                                <button placement="top" ngbTooltip="تعديل" class="btn btn-info-gradien"
+                                                <button placement="top" ngbTooltip="تعديل" class="btn-sm btn-info-gradien"
                                                     (click)="editAdmin(item._id)">
                                                     <i class="fa fa-pencil"></i>
                                                 </button>&nbsp;
-                                                <button placement="top" ngbTooltip="حذف" class="btn btn-danger-gradien"
+                                                <button placement="top" ngbTooltip="حذف" class="btn-sm btn-danger-gradien"
                                                     (click)="deleteAdmin(item._id)">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
@@ -45,8 +45,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <ngb-pagination *ngIf="admins.length > 0" [collectionSize]="collectionCount" #numPages
-                                [pageSize]="limit" [(page)]="page" (pageChange)="onPageChange(page)"></ngb-pagination>
+                            <ngb-pagination *ngIf="admins.length > 0" [maxSize]="10" [collectionSize]="collectionCount" #numPages [pageSize]="limit" [(page)]="page" (pageChange)="onPageChange(page)"></ngb-pagination>
                         </div>
                     </div>
                 </div>

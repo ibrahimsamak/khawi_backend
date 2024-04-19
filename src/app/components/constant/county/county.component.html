@@ -36,12 +36,12 @@
                                             </td>
                                             <td>
                                                 <button placement="top" ngbTooltip="تعديل"
-                                                    class="btn btn-primary-gradien" (click)="openCountry(content,item)">
+                                                    class="btn-sm btn-primary-gradien" (click)="openCountry(content,item)">
                                                     <i class="fa fa-pencil"></i>
                                                 </button>&nbsp;
 
                                                 <button placement="top" ngbTooltip="اخفاء واظهار الدول في التطبيق"
-                                                    class="btn btn-danger-gradien" (click)="deleteCountry(item._id)">
+                                                    class="btn-sm btn-danger-gradien" (click)="deleteCountry(item._id)">
                                                     <i *ngIf="!item.isDeleted" class="fa fa-eye-slash"></i>
                                                     <i *ngIf="item.isDeleted" class="fa fa-eye"></i>
                                                 </button>

@@ -57,7 +57,7 @@ import { AgmDirectionModule } from "agm-direction"; // agm-direction
     GalleryModule.forRoot(),
     OrdersModule,
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyDa0BdEB-otNYNMCa5wHCks__iwqsMA08g",
+      apiKey: "AIzaSyAvAuahE3FylyGQ7f_TXKRUlY1X66JYGy8",
     }),
     AgmDirectionModule,
   ],
